@@ -2,8 +2,31 @@
 
 namespace OTAI.Scenario {
     public partial class FormScenario : Form {
-        public FormScenario() {
+        #region Données membres
+
+        private ControleurScenario controleur;
+
+        #endregion
+
+        #region Constructeurs
+
+        public FormScenario(ControleurScenario controleur) {
             InitializeComponent();
+            this.controleur = controleur;
         }
+
+        #endregion
+
+        #region Méthodes publiques
+
+        public void MsgCreationAeroportReussie(string nomAeroport) {
+
+        }
+
+        public void MsgManqueInfoAeroport() {
+
+        }
+
+        #endregion
     }
 }
