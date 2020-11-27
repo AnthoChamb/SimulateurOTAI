@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aeroport.cs" />
     <Compile Include="AvionObservateur.cs" />
     <Compile Include="AvionTemps.cs" />
     <Compile Include="AvionCiterne.cs" />

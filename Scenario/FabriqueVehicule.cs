@@ -29,20 +29,14 @@ namespace OTAI.Scenario {
         /// <returns>Retourne le véhicule créer à partir des paramètres précisés</returns>
         /// <exception cref="ArgumentException">L'utilisateur doit fournir les paramètres nécessaires à la création du type de véhicule précisé</exception>
         public Vehicule CreerVehicule(TypeVehicule typeVehicule, string nom, int vitesse, int? embarquement = null, int? debarquement = null, int? entretien = null, object capacite = null) {
-            switch (typeVehicule) {
-                case TypeVehicule.SECOURS:
-                    return new HelicoptereSecours(nom, vitesse);
-                case TypeVehicule.OBSERVATEUR:
-                    return new AvionObservateur(nom, vitesse);
-                case TypeVehicule.CITERNE:
-                    return new AvionCiterne(nom, vitesse, embarquement.Value, debarquement.Value, entretien.Value);
-                case TypeVehicule.PASSAGER:
-                    return new AvionPassager(nom, vitesse, embarquement.Value, debarquement.Value, entretien.Value, (int)capacite);
-                case TypeVehicule.MARCHANDISE:
-                    return new AvionMarchandise(nom, vitesse, embarquement.Value, debarquement.Value, entretien.Value, (float)capacite);
-                default:
-                    throw new ArgumentException("Type de véhicule inconnu");
-            }
+            return typeVehicule switch {
+                TypeVehicule.SECOURS => new HelicoptereSecours(nom, vitesse),
+                TypeVehicule.OBSERVATEUR => new AvionObservateur(nom, vitesse),
+                TypeVehicule.CITERNE => new AvionCiterne(nom, vitesse, embarquement.Value, debarquement.Value, entretien.Value),
+                TypeVehicule.PASSAGER => new AvionPassager(nom, vitesse, embarquement.Value, debarquement.Value, entretien.Value, (int)capacite),
+                TypeVehicule.MARCHANDISE => new AvionMarchandise(nom, vitesse, embarquement.Value, debarquement.Value, entretien.Value, (float)capacite),
+                _ => throw new ArgumentException("Type de véhicule inconnu"),
+            };
         }
     }
 }

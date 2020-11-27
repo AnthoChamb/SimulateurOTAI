@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace OTAI.Scenario {
+namespace OTAI.Simulateur {
     /// <summary>Classe d'un aéroport</summary>
     public class Aeroport : IComparable {
         #region Données membres
@@ -13,6 +14,7 @@ namespace OTAI.Scenario {
         private int minMarchandise;
         private int maxMarchandise;
         private List<Vehicule> vehicules;
+        private readonly List<Client> clients;
 
         #endregion
 
@@ -20,7 +22,10 @@ namespace OTAI.Scenario {
 
         /// <summary>Constructeur de base d'un aéroport</summary>
         /// <remarks>Ce constructeur ne devrait être appelé directement que par la désérialization Xml</remarks>
-        internal Aeroport() => vehicules = new List<Vehicule>();
+        internal Aeroport() {
+            vehicules = new List<Vehicule>();
+            clients = new List<Client>();
+        }
 
         /// <summary>Crée un aéroport avec toutes ses propriétés</summary>
         /// <param name="nom">Nom de l'aéroport</param>
@@ -70,17 +75,58 @@ namespace OTAI.Scenario {
             }
         }
 
+        /// <summary>Obtient une représentation en chaine des clients en attente dans l'aéroport</summary>
+        public string[] Clients {
+            get {
+                string[] chaines = new string[clients.Count];
+                for (int i = 0; i < clients.Count; i++)
+                    chaines[i] = clients[i].ToString();
+                return chaines;
+            }
+        }
+
+        public (TypeVehicule, Position, Position, Position)[] Vols {
+            get {
+                List<(TypeVehicule typeVehicule, Position origine, Position position, Position destination)> vols = new List<(TypeVehicule, Position, Position, Position)>();
+
+                foreach (Vehicule vehicule in vehicules)
+                    if (vehicule.EnVol)
+                        vols.Add((TypeVehiculeVehicule(vehicule), vehicule.OrigineVol.Value, vehicule.PositionVol.Value, vehicule.DestinationVol.Value));
+
+                return vols.ToArray();
+            }
+        }
+
         /// <summary>Obtient la liste des véhicules de l'aéroport</summary>
         /// <remarks>Cette propriété ne devrait être appelé directement que par la sérialization et désérialization Xml</remarks>
         internal List<Vehicule> Vehicules { get => vehicules; set => vehicules = value; }
 
         #endregion
 
+        #region Propriétés des véhicules
+
+        /// <summary>Évalue si l'aéroport possède un <see cref="HelicoptereSecours"/></summary>
+        public bool PossedeHelicoptereSecours { get => vehicules.Where(vehicule => vehicule is HelicoptereSecours).Count() > 0; }
+
+        /// <summary>Évalue si l'aéroport possède un <see cref="AvionObservateur"/></summary>
+        public bool PossedeAvionObservateur { get => vehicules.Where(vehicule => vehicule is AvionObservateur).Count() > 0; }
+
+        /// <summary>Évalue si l'aéroport possède un <see cref="AvionCiterne"/></summary>
+        public bool PossedeAvionCiterne { get => vehicules.Where(vehicule => vehicule is AvionCiterne).Count() > 0; }
+
+        #endregion
+
         #region Méthodes publiques
 
-        /// <summary>Ajoute un véhicule à l'aéroport</summary>
-        /// <param name="vehicule">Véhicule à ajouter à l'aéroport</param>
-        public void AjouterVehicule(Vehicule vehicule) => vehicules.Add(vehicule);
+        /// <summary>Simule l'action de l'aéroport</summary>
+        /// <param name="temps">Temps de simulation en secondes</param>
+        public void Simuler(int temps) {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>Ajoute un client à l'aéroport</summary>
+        /// <param name="client">Client à ajouter à l'aéroport</param>
+        public void AjoutClient(Client client) => clients.Add(client);
 
         /// <summary>Obtient un entier qui détermine si cette instance précède, suit ou se situe à la même position que l'objet précisé dans l'odre de tri</summary>
         /// <param name="obj">Objet à comparer avec cette instance</param>
@@ -95,7 +141,32 @@ namespace OTAI.Scenario {
 
         /// <summary>Obtient une représentation en chaine de l'aéroport</summary>
         /// <returns>Retourne une représentation en chaine de l'aéroport</returns>
-        public override string ToString() => String.Format("{0} ({1}) MinPassagers : {2}, MaxPassagers : {3}, MinMarchandise : {4}, MaxMarchandise : {5}", Nom, position, minPassagers, maxPassagers, minMarchandise, maxMarchandise);
+        public override string ToString() => nom;
+
+        #endregion
+
+        #region Méthodes privées
+
+        /// <summary>Obtient le type de véhicule du véhicule reçu en paramètre</summary>
+        /// <param name="vehicule">Véhicule à identifier</param>
+        /// <returns>Retourne le type de véhicule du véhicule</returns>
+        /// <exception cref="ArgumentException">Le véhicule reçu doit être d'un type valide</exception>
+        private static TypeVehicule TypeVehiculeVehicule(Vehicule vehicule) {
+            switch (vehicule) {
+                case HelicoptereSecours _:
+                    return TypeVehicule.SECOURS;
+                case AvionObservateur _:
+                    return TypeVehicule.OBSERVATEUR;
+                case AvionCiterne _:
+                    return TypeVehicule.CITERNE;
+                case AvionPassager _:
+                    return TypeVehicule.PASSAGER;
+                case AvionMarchandise _:
+                    return TypeVehicule.MARCHANDISE;
+                default:
+                    throw new ArgumentException("Type de véhicule inconnu");
+            }
+        }
 
         #endregion
     }
