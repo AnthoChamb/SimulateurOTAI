@@ -31,9 +31,9 @@ namespace OTAI.Simulateur {
         /// <param name="nom">Nom de l'aéroport</param>
         /// <param name="position">Position de l'aéroport</param>
         /// <param name="minPassagers">Taux d'achalandage minimal de passagers pour une heure dans l'aéroport</param>
-        /// <param name="maxPassagers"></param>
-        /// <param name="minMarchandise"></param>
-        /// <param name="maxMarchandise"></param>
+        /// <param name="maxPassagers">Taux d'achalandage maximal de passagers pour une heure dans l'aéroport</param>
+        /// <param name="minMarchandise">Taux d'achalandage minimal de marchandise pour une heure dans l'aéroport</param>
+        /// <param name="maxMarchandise">Taux d'achalandage maximal de marchandise pour une heure dans l'aéroport</param>
         public Aeroport(string nom, Position position, int minPassagers, int maxPassagers, int minMarchandise, int maxMarchandise) : this() {
             this.nom = nom;
             this.position = position;
@@ -85,9 +85,10 @@ namespace OTAI.Simulateur {
             }
         }
 
+        /// <summary>Obtient un ensemble de valeurs identifiant les véhicules en vol dans l'aéroport</summary>
         public (TypeVehicule, Position, Position, Position)[] Vols {
             get {
-                List<(TypeVehicule typeVehicule, Position origine, Position position, Position destination)> vols = new List<(TypeVehicule, Position, Position, Position)>();
+                List<(TypeVehicule, Position, Position, Position)> vols = new List<(TypeVehicule, Position, Position, Position)>();
 
                 foreach (Vehicule vehicule in vehicules)
                     if (vehicule.EnVol)

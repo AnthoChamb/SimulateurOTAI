@@ -1,45 +1,66 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OTAI.Scenario {
+    /// <summary>Classe d'un scénario du simulateur</summary>
     public class Scenario {
-
-        #region Données membres
-
-        //private SortedList<Aeroport> aeroports;
-
-        #endregion
+        private List<Aeroport> aeroports;
 
         #region Constructeurs
 
-        public Scenario() {
-
-        }
+        /// <summary>Constructeur de base d'un scénario</summary>
+        public Scenario() => aeroports = new List<Aeroport>();
 
         #endregion
 
         #region Propriétés publiques
 
-        //public string[] Aeroports { get; }
+        /// <summary>Obtient les représentations en chaines des aéroports dans le scénario</summary>
+        public string[] ChainesAeroports {
+            get {
+                string[] chaines = new string[aeroports.Count];
+                for (int i = 0; i < aeroports.Count; i++)
+                    chaines[i] = aeroports[i].ToString();
+                return chaines;
+            }
+        }
 
-        //internal SortedList<Aeroport> Aeroports { get; set; }
+        /// <summary>Obtient la liste des aéroports dans le scénario</summary>
+        /// <remarks>Cette propriété ne devrait être appelé directement que par la sérialization et désérialization Xml</remarks>
+        internal List<Aeroport> Aeroports { get => aeroports; set => aeroports = value; }
 
-        //public string[] Vehicules[int i] { get;}
+        /// <summary>Obtient les représentations en chaine des véhicules à l'aéroport de l'indice précisé</summary>
+        /// <param name="i">Indice de l'aéroport</param>
+        /// <returns>Retourne les représentations en chaine des véhicules à l'aéroport de l'indice précisé</returns>
+        public string[] this[int i] { get => aeroports[i].ChainesVehicules; }
 
         #endregion
 
         #region Méthodes publiques
 
+        /// <summary>Ajoute un aéroport avec toutes ses propriétés dans le scénario</summary>
+        /// <param name="nom">Nom de l'aéroport</param>
+        /// <param name="position">Position de l'aéroport</param>
+        /// <param name="minPassagers">Taux d'achalandage minimal de passagers pour une heure dans l'aéroport</param>
+        /// <param name="maxPassagers">Taux d'achalandage maximal de passagers pour une heure dans l'aéroport</param>
+        /// <param name="minMarchandise">Taux d'achalandage minimal de marchandise pour une heure dans l'aéroport</param>
+        /// <param name="maxMarchandise">Taux d'achalandage maximal de marchandise pour une heure dans l'aéroport</param>
         public void AjouterAeroport(string nom, Position position, int minPassagers, int maxPassagers, int minMarchandise, int maxMarchandise) {
-
+            aeroports.Add(new Aeroport(nom, position, minPassagers, maxPassagers, minMarchandise, maxMarchandise));
+            aeroports.Sort();
         }
 
-        public void AjouterVehicule(int aeroport, TypeVehicule typeVehicule, string nom, int vitesse, int? embarquement, int? debarquement, int? entretien, object? capacite) {
-
-        }
+        /// <summary>Ajoute un véhicule avec toutes ses propriétés dans l'aéroport à l'indice précisé</summary>
+        /// <param name="aeroport">Indice de l'aéroport</param>
+        /// <param name="typeVehicule">Type du véhicule</param>
+        /// <param name="nom">Nom du véhicule</param>
+        /// <param name="vitesse">Vitesse du véhicule</param>
+        /// <param name="embarquement">Paramètre optionnel du temps d'embarquement ou de chargement du véhicule en secondes</param>
+        /// <param name="debarquement">Paramètre optionnel du temps de débarquement ou de largage du véhicule en secondes</param>
+        /// <param name="entretien">Paramètre optionnel du temps d'entretien du véhicule en secondes</param>
+        /// <param name="capacite">Paramètres optionnel de la capacité de passagers ou de marchandises du véhicule</param>
+        /// <exception cref="ArgumentException">L'utilisateur doit fournir les paramètres nécessaires à la création du type de véhicule précisé</exception>
+        public void AjouterVehicule(int aeroport, TypeVehicule typeVehicule, string nom, int vitesse, int? embarquement = null, int? debarquement = null, int? entretien = null, object capacite = null) => aeroports[aeroport].AjouterVehicule(FabriqueVehicule.Singleton.CreerVehicule(typeVehicule, nom, vitesse, embarquement, debarquement, entretien, capacite));
 
         #endregion
     }
