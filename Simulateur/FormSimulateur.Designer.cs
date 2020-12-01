@@ -33,10 +33,10 @@
             this.itemQuitter = new System.Windows.Forms.ToolStripMenuItem();
             this.groupVitesse = new System.Windows.Forms.GroupBox();
             this.groupAeroports = new System.Windows.Forms.GroupBox();
-            this.groupClients = new System.Windows.Forms.GroupBox();
-            this.groupVehicules = new System.Windows.Forms.GroupBox();
             this.lstAeroports = new System.Windows.Forms.ListBox();
+            this.groupClients = new System.Windows.Forms.GroupBox();
             this.lstClients = new System.Windows.Forms.ListBox();
+            this.groupVehicules = new System.Windows.Forms.GroupBox();
             this.lstVehicules = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureCarte)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackVitesse)).BeginInit();
@@ -146,6 +146,16 @@
             this.groupAeroports.TabStop = false;
             this.groupAeroports.Text = "Aéroports";
             // 
+            // lstAeroports
+            // 
+            this.lstAeroports.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstAeroports.FormattingEnabled = true;
+            this.lstAeroports.Location = new System.Drawing.Point(3, 16);
+            this.lstAeroports.Name = "lstAeroports";
+            this.lstAeroports.Size = new System.Drawing.Size(194, 181);
+            this.lstAeroports.TabIndex = 0;
+            this.lstAeroports.SelectedIndexChanged += new System.EventHandler(this.lstAeroports_SelectedIndexChanged);
+            // 
             // groupClients
             // 
             this.groupClients.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -158,6 +168,15 @@
             this.groupClients.TabStop = false;
             this.groupClients.Text = "Clients";
             // 
+            // lstClients
+            // 
+            this.lstClients.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstClients.FormattingEnabled = true;
+            this.lstClients.Location = new System.Drawing.Point(3, 16);
+            this.lstClients.Name = "lstClients";
+            this.lstClients.Size = new System.Drawing.Size(250, 181);
+            this.lstClients.TabIndex = 1;
+            // 
             // groupVehicules
             // 
             this.groupVehicules.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -169,25 +188,6 @@
             this.groupVehicules.TabIndex = 7;
             this.groupVehicules.TabStop = false;
             this.groupVehicules.Text = "Véhicules";
-            // 
-            // lstAeroports
-            // 
-            this.lstAeroports.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstAeroports.FormattingEnabled = true;
-            this.lstAeroports.Location = new System.Drawing.Point(3, 16);
-            this.lstAeroports.Name = "lstAeroports";
-            this.lstAeroports.Size = new System.Drawing.Size(194, 181);
-            this.lstAeroports.TabIndex = 0;
-            this.lstAeroports.SelectedIndexChanged += new System.EventHandler(this.lstAeroports_SelectedIndexChanged);
-            // 
-            // lstClients
-            // 
-            this.lstClients.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstClients.FormattingEnabled = true;
-            this.lstClients.Location = new System.Drawing.Point(3, 16);
-            this.lstClients.Name = "lstClients";
-            this.lstClients.Size = new System.Drawing.Size(250, 181);
-            this.lstClients.TabIndex = 1;
             // 
             // lstVehicules
             // 

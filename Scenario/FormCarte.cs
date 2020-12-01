@@ -20,6 +20,7 @@ namespace OTAI.Scenario {
 
         public FormCarte() {
             InitializeComponent();
+            position = new Point();
         }
 
         #endregion
@@ -29,5 +30,13 @@ namespace OTAI.Scenario {
         public Point Position { get => position; }
 
         #endregion
+
+        private void pictureCarte_Click(object sender, EventArgs e) {
+            var mouseEventArgs = e as MouseEventArgs;
+            if (mouseEventArgs != null) {
+                position.X = mouseEventArgs.X;
+                position.Y = mouseEventArgs.Y;
+            }
+        }
     }
 }
