@@ -53,6 +53,7 @@
     <Compile Include="AvionCapacite.cs" />
     <Compile Include="AvionPassager.cs" />
     <Compile Include="AvionMarchandise.cs" />
+    <Compile Include="ControleurSimulateur.cs" />
     <Compile Include="HelicoptereSecours.cs" />
     <Compile Include="EtatObservation.cs" />
     <Compile Include="EtatEntretien.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Position.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scenario.cs" />
     <Compile Include="TypeVehicule.cs" />
     <Compile Include="Vehicule.cs" />
     <EmbeddedResource Include="FormSimulateur.resx">
@@ -98,6 +100,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\carte.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
