@@ -14,10 +14,9 @@ namespace OTAI.Simulateur {
 
         #region Constructeur
         /// <summary>Crée un client dont le rôle est de transporter une charge à destination  </summary>
-        /// <param name="position">Position initiale du client</param>
         /// <param name="aeroportDestination">Destination du client</param>
         /// <param name="quantite">Quantité d'unités chargées à bord du client</param>
-        public ClientTransport(Position position, Aeroport aeroportDestination, int quantite) : base(position) {
+        public ClientTransport(Aeroport aeroportDestination, int quantite) : base(aeroportDestination.Position) {
             this.aeroportDestination = aeroportDestination;
             this.quantite = quantite;
         }

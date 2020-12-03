@@ -57,6 +57,7 @@
     <Compile Include="Clientele.cs" />
     <Compile Include="ClientTransport.cs" />
     <Compile Include="ControleurSimulateur.cs" />
+    <Compile Include="FabriqueClient.cs" />
     <Compile Include="Feu.cs" />
     <Compile Include="HelicoptereSecours.cs" />
     <Compile Include="EtatObservation.cs" />

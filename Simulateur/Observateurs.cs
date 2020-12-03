@@ -14,8 +14,9 @@ namespace OTAI.Simulateur {
         #endregion
 
         #region Méthodes publiques
-        public override string ToString() => Clientele.OBSERVATEURS.ToString();
+        public override string ToString() => "Observation (" + base.Position + ")";
 
+        public override bool Equals(object obj) => obj is Observateurs observateurs && observateurs.Position == Position;
         #endregion
     }
 }

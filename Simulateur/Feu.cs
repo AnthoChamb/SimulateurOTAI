@@ -21,7 +21,9 @@ namespace OTAI.Simulateur {
         #endregion
 
         #region Méthodes publiques
-        public override string ToString() => Clientele.FEUX.ToString();
+        public override string ToString() =>  "Incendie d'envergure " + envergure + " (" + base.Position + ")";
+
+        public override bool Equals(object obj) => obj is Feu feu && feu.Position == Position && feu.envergure == envergure;
 
         #endregion
     }

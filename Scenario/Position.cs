@@ -45,6 +45,11 @@ namespace OTAI.Scenario {
             return base.ToString();
         }
 
+        public override bool Equals(object obj) => obj is Position position && position.lat == lat && position.lon == lon;
+
+        public static bool operator ==(Position a, Position b) => a.Equals(b);
+
+        public static bool operator !=(Position a, Position b) => !a.Equals(b);
         #endregion
     }
 }

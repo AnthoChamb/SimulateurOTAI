@@ -10,12 +10,12 @@ namespace OTAI.Simulateur {
         /// <summary>Situation de secours</summary>
         SECOURS,
         /// <summary>Situation de feu</summary>
-        FEUX,
+        INCENDIE,
         /// <summary>Situation de passagers</summary>
         PASSAGERS,
         /// <summary>Situation de marchandises</summary>
         MARCHANDISES,
         /// <summary>Situation d'observation</summary>
-        OBSERVATEURS
+        OBSERVATION
     }
 }

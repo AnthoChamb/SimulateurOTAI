@@ -26,7 +26,7 @@ namespace OTAI.Simulateur {
 
         #endregion
 
-      
+        public abstract override bool Equals(object obj);
 
     }
 }
