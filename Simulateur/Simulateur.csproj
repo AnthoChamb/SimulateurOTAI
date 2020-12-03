@@ -53,7 +53,11 @@
     <Compile Include="AvionCapacite.cs" />
     <Compile Include="AvionPassager.cs" />
     <Compile Include="AvionMarchandise.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="Clientele.cs" />
+    <Compile Include="ClientTransport.cs" />
     <Compile Include="ControleurSimulateur.cs" />
+    <Compile Include="Feu.cs" />
     <Compile Include="HelicoptereSecours.cs" />
     <Compile Include="EtatObservation.cs" />
     <Compile Include="EtatEntretien.cs" />
@@ -69,10 +73,14 @@
     <Compile Include="FormSimulateur.Designer.cs">
       <DependentUpon>FormSimulateur.cs</DependentUpon>
     </Compile>
+    <Compile Include="Marchandises.cs" />
+    <Compile Include="Observateurs.cs" />
+    <Compile Include="Passagers.cs" />
     <Compile Include="Position.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenario.cs" />
+    <Compile Include="Secours.cs" />
     <Compile Include="TypeVehicule.cs" />
     <Compile Include="Vehicule.cs" />
     <EmbeddedResource Include="FormSimulateur.resx">
