@@ -16,10 +16,11 @@ namespace OTAI.Scenario {
         #region Constructeurs
 
         public ControleurCarte() {
-
+            interfaceCarte = new FormCarte();
         }
 
         #endregion
+
 
         #region Méthodes publiques
 

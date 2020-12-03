@@ -127,7 +127,7 @@ namespace OTAI.Simulateur {
 
         /// <summary>Ajoute un client à l'aéroport</summary>
         /// <param name="client">Client à ajouter à l'aéroport</param>
-        public void AjoutClient(Client client) => clients.Add(client);
+        //public void AjoutClient(Client client) => clients.Add(client);
 
         /// <summary>Obtient un entier qui détermine si cette instance précède, suit ou se situe à la même position que l'objet précisé dans l'odre de tri</summary>
         /// <param name="obj">Objet à comparer avec cette instance</param>
