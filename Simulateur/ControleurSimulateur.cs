@@ -15,7 +15,7 @@ namespace OTAI.Simulateur {
 
         #endregion
 
-        /// <summary>Constructeur de base d'un controlleur du simulateur</summary>
+        /// <summary>Crée un controlleur du simulateur et démarre l'application</summary>
         public ControleurSimulateur() {
             interfaceSimulateur = new FormSimulateur(this);
             scenario = null;

@@ -122,12 +122,20 @@ namespace OTAI.Simulateur {
         /// <summary>Simule l'action de l'aéroport</summary>
         /// <param name="temps">Temps de simulation en secondes</param>
         public void Simuler(int temps) {
-            throw new NotImplementedException();
+            DistribuerClients();
+            foreach (Vehicule vehicule in vehicules)
+                vehicule.Simuler(temps);
         }
 
         /// <summary>Ajoute un client à l'aéroport</summary>
         /// <param name="client">Client à ajouter à l'aéroport</param>
-        //public void AjoutClient(Client client) => clients.Add(client);
+        /// <remarks>Dans le cas où des passagers ou marchandises sont déjà en attente pour la même destination, leur quantité se verra ajusté pour accepter les nouveaux clients</remarks>
+        public void AjouterClient(Client client) {
+            if (clients.Find(c => c == client) is ClientTransport attente && client is ClientTransport nouveau)
+                attente.Quantite += nouveau.Quantite;
+            else
+                clients.Add(client);
+        }
 
         /// <summary>Obtient un entier qui détermine si cette instance précède, suit ou se situe à la même position que l'objet précisé dans l'odre de tri</summary>
         /// <param name="obj">Objet à comparer avec cette instance</param>
@@ -143,6 +151,11 @@ namespace OTAI.Simulateur {
         /// <summary>Obtient une représentation en chaine de l'aéroport</summary>
         /// <returns>Retourne une représentation en chaine de l'aéroport</returns>
         public override string ToString() => nom;
+
+        /// <summary>Évalue si l'objet reçu en paramètre est identique à cet aéroport</summary>
+        /// <param name="obj">Objet à comparer avec cet aéroport</param>
+        /// <returns>Retourne <c>true</c> si l'objet reçu en paramètre est identique à cet aéroport; sinon <c>false</c></returns>
+        public override bool Equals(object obj) => obj is Aeroport aeroport && aeroport.nom == nom && aeroport.position == position && aeroport.minPassagers == minPassagers && aeroport.maxPassagers == maxPassagers && aeroport.minMarchandise == minMarchandise && aeroport.maxMarchandise == maxMarchandise;
 
         #endregion
 
@@ -168,6 +181,83 @@ namespace OTAI.Simulateur {
                     throw new ArgumentException("Type de véhicule inconnu");
             }
         }
+
+        /// <summary>Distribue les clients en attente de l'aéroport dans les véhicules en attente</summary>
+        private void DistribuerClients() {
+            foreach (Client client in clients) {
+                switch (client) {
+                    case Secours secours:
+                        if (vehicules.Where(vehicule => vehicule is HelicoptereSecours && vehicule.EnAttente).FirstOrDefault() is HelicoptereSecours helicoptere) {
+                            helicoptere.EnvoyerSecours(position, secours.Position);
+                            clients.Remove(secours);
+                        }
+                        break;
+
+                    case Feu feu:
+                        if (vehicules.Where(vehicule => vehicule is AvionCiterne && vehicule.EnAttente).FirstOrDefault() is AvionCiterne citerne) {
+                            citerne.EnvoyerEteindreFeu(position, feu.Position, feu.Envergure);
+                            clients.Remove(feu);
+                        }
+                        break;
+
+                    case Passagers passagers:
+                        List<AvionPassager> passagerDispo = (vehicules.Where(vehicule => vehicule is AvionPassager && vehicule.EnAttente) as IEnumerable<AvionPassager>).ToList();
+                        passagerDispo.Sort((a, b) => b.Capacite.CompareTo(a.Capacite));
+
+                        while (passagers.Quantite > 0 && passagerDispo.Count > 0) {
+                            // Prends le plus petit avion disponible avec une capacité plus grande que la quantité ou le plus grand avion avec une capacité plus petite
+                            AvionPassager passager = passagerDispo.Where(simple => simple.Capacite > passagers.Quantite).LastOrDefault() ?? passagerDispo.First();
+                            passagers.Quantite -= passager.Capacite;
+                            TransfereAvion(passagers, passager);
+                            passagerDispo.Remove(passager);
+                        }
+
+                        if (passagers.Quantite <= 0)
+                            clients.Remove(passagers);
+                        break;
+
+                    case Marchandises marchandises:
+                        List<AvionMarchandise> marchandiseDispo = (vehicules.Where(vehicule => vehicule is AvionMarchandise && vehicule.EnAttente) as IEnumerable<AvionMarchandise>).ToList();
+                        marchandiseDispo.Sort((a, b) => b.Capacite.CompareTo(a.Capacite));
+
+                        while (marchandises.Quantite > 0 && marchandiseDispo.Count > 0) {
+                            // Prends le plus petit avion disponible avec une capacité plus grande que la quantité ou le plus grand avion avec une capacité plus petite
+                            AvionMarchandise marchandise = marchandiseDispo.Where(simple => simple.Capacite > marchandises.Quantite).LastOrDefault() ?? marchandiseDispo.First();
+                            marchandises.Quantite -= (int)Math.Floor(marchandise.Capacite);
+                            TransfereAvion(marchandises, marchandise);
+                            marchandiseDispo.Remove(marchandise);
+                        }
+
+                        if (marchandises.Quantite <= 0)
+                            clients.Remove(marchandises);
+                        break;
+
+                    case Observateurs observateurs:
+                        if (vehicules.Where(vehicule => vehicule is AvionObservateur && vehicule.EnAttente).FirstOrDefault() is AvionObservateur observateur) {
+                            observateur.EnvoyerObservation(position, observateurs.Position);
+                            clients.Remove(observateurs);
+                        }
+                        break;
+                }
+            }
+        }
+
+        /// <summary>Transfère l'avion reçu en paramètre vers le client de transport</summary>
+        /// <param name="client">Client de destination</param>
+        /// <param name="avion">Avion à transféré</param>
+        private void TransfereAvion(ClientTransport client, AvionCapacite avion) {
+            client.AreoportDestination.vehicules.Add(avion);
+            avion.EnvoyerTransport(position, client.Position);
+            vehicules.Remove(avion);
+        }
+
+        #endregion
+
+        #region Opérateurs 
+
+        public static bool operator ==(Aeroport a, Aeroport b) => a.Equals(b);
+
+        public static bool operator !=(Aeroport a, Aeroport b) => !a.Equals(b);
 
         #endregion
     }
