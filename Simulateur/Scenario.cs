@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OTAI.Simulateur {
     /// <summary>Classe d'un scénario du simulateur</summary>
@@ -8,7 +9,7 @@ namespace OTAI.Simulateur {
 
         private List<Aeroport> aeroports;
         private int ecoule;
-        // TODO : Ajouter temps restant
+        private readonly Dictionary<Clientele, int> restant;
 
         #endregion
 
@@ -18,7 +19,13 @@ namespace OTAI.Simulateur {
         public Scenario() {
             aeroports = new List<Aeroport>();
             ecoule = 0;
-            // TODO : Initialiser temps restant
+            restant = new Dictionary<Clientele, int>(5) {
+                { Clientele.SECOURS, ClienteleAttente(Clientele.SECOURS) },
+                { Clientele.INCENDIE, ClienteleAttente(Clientele.INCENDIE) },
+                { Clientele.PASSAGERS, ClienteleAttente(Clientele.PASSAGERS) },
+                { Clientele.MARCHANDISES, ClienteleAttente(Clientele.MARCHANDISES) },
+                { Clientele.OBSERVATION, ClienteleAttente(Clientele.OBSERVATION) }
+            };
         }
 
         #endregion
@@ -91,11 +98,87 @@ namespace OTAI.Simulateur {
         public void Simuler(int temps) {
             ecoule += temps;
 
-            throw new NotImplementedException();
+            foreach (Clientele clientele in restant.Keys) {
+                restant[clientele] -= temps;
+
+                if (restant[clientele] <= 0) {
+                    switch (clientele) {
+                        case Clientele.PASSAGERS:
+                            EnvoyerPassagers();
+                            break;
+                        case Clientele.MARCHANDISES:
+                            EnvoyerMarchandises();
+                            break;
+                        default:
+                            Random rand = new Random();
+                            Position alea = new Position(rand.Next(-90, 90), rand.Next(-180, 180));
+
+                            aeroports.OrderBy(aeroport => aeroport.Position.Distance(alea)).First().AjouterClient(FabriqueClient.Singleton.CreerClient(clientele, alea));
+                            break;
+                    }
+
+                    restant[clientele] = restant[clientele] + ClienteleAttente(clientele);
+                }
+            }
+
+            foreach (Aeroport aeroport in aeroports)
+                aeroport.Simuler(temps);
         }
 
         #endregion
 
-        // TODO : Ajouter manipulation des temps restants
+        #region Méthodes privées
+
+        /// <summary>Obtient le temps d'attente en secondes de la clientèle reçu en paramètre</summary>
+        /// <param name="clientele">Clientèle à identifier</param>
+        /// <returns>Retourne le temps d'attente en secondes de la clientèle</returns>
+        /// <exception cref="ArgumentException">La clintèle reçu doit être d'un type valide</exception>
+        private static int ClienteleAttente(Clientele clientele) {
+            switch (clientele) {
+                case Clientele.SECOURS:
+                    return 1200;
+                case Clientele.INCENDIE:
+                    return 2400;
+                case Clientele.PASSAGERS:
+                case Clientele.MARCHANDISES:
+                case Clientele.OBSERVATION:
+                    return 3600;
+                default:
+                    throw new ArgumentException("Clientèle inconnue");
+            }
+        }
+
+        /// <summary>Envoie des passagers dans tous les aéroports en fonction de leur taux d'achalandage</summary>
+        private void EnvoyerPassagers() {
+            if (aeroports.Count > 1) {
+                Random rand = new Random();
+                foreach (Aeroport aeroport in aeroports) {
+                    int autre = rand.Next(0, aeroports.Count);
+
+                    while (aeroports[autre] == aeroport)
+                        autre = rand.Next(0, aeroports.Count);
+
+                    aeroport.AjouterClient(FabriqueClient.Singleton.CreerClient(Clientele.PASSAGERS, aeroports[autre], rand.Next(aeroport.MinPassagers, aeroport.MaxPassagers)));
+                }
+            }
+        }
+
+        /// <summary>Envoie des marchandises dans tous les aéroports en fonction de leur taux d'achalandage</summary>
+        private void EnvoyerMarchandises() {
+            if (aeroports.Count > 1) {
+                Random rand = new Random();
+                foreach (Aeroport aeroport in aeroports) {
+                    int autre = rand.Next(0, aeroports.Count);
+
+                    while (aeroports[autre] == aeroport)
+                        autre = rand.Next(0, aeroports.Count);
+
+                    aeroport.AjouterClient(FabriqueClient.Singleton.CreerClient(Clientele.MARCHANDISES, aeroports[autre], rand.Next(aeroport.MinMarchandise, aeroport.MaxMarchandise)));
+                }
+            }
+        }
+
+        #endregion
+
     }
 }
