@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace OTAI.Simulateur {
     /// <summary>Structure d'une position cartographique</summary>
@@ -41,15 +42,52 @@ namespace OTAI.Simulateur {
             return new PointF();
         }
 
+        /// <summary>Calcule la distance entre cette position et la position reçu en paramètre</summary>
+        /// <param name="a">Position a</param>
+        /// <param name="b">Position b</param>
+        /// <returns>Retourne la distance entre cette position et la position reçu en paramètre</returns>
+        public double Distance(Position position) => Distance(this, position);
+
         public override string ToString() {
             return base.ToString();
         }
 
         public override bool Equals(object obj) => obj is Position position && position.lat == lat && position.lon == lon;
 
+        #endregion
+
+        #region Méthodes statiques
+
+        /// <summary>Calcule la distance entre deux positions</summary>
+        /// <param name="a">Position a</param>
+        /// <param name="b">Position b</param>
+        /// <returns>Retourne la distance entre les deux positions</returns>
+        public static double Distance(Position a, Position b) {
+            Position p2 = a > b ? a : b;
+            Position p1 = a > b ? b : a;
+            return Math.Sqrt(Math.Pow(p2.lon - p1.lon, 2) + Math.Pow(p2.lat - p1.lat, 2));
+        }
+
+        #endregion
+
+        #region Opérateurs
+
         public static bool operator ==(Position a, Position b) => a.Equals(b);
 
         public static bool operator !=(Position a, Position b) => !a.Equals(b);
+
+        /// <summary>Évalue si la position a est plus grande que la position b en comparant leur longitude</summary>
+        /// <param name="a">Position a</param>
+        /// <param name="b">Position b</param>
+        /// <returns>Retourne <c>true</c> si la longitude de la position a est plus grande que celle de la position b; sinon <c>false</c></returns>
+        public static bool operator >(Position a, Position b) => a.lon > b.lon;
+
+        /// <summary>Évalue si la position a est plus petite que la position b en comparant leur longitude</summary>
+        /// <param name="a">Position a</param>
+        /// <param name="b">Position b</param>
+        /// <returns>Retourne <c>true</c> si la longitude de la position a est plus petite que celle de la position b; sinon <c>false</c></returns>
+        public static bool operator <(Position a, Position b) => a.lon < b.lon;
+
         #endregion
     }
 }

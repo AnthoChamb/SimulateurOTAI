@@ -31,20 +31,20 @@ namespace OTAI.Simulateur {
         /// <param name="quantite">Quantité chargée des unités de transports</param>
         /// <returns>Retourne le client créer à partir des paramètres précisés</returns>
         /// <exception cref="ArgumentException">L'utilisateur doit fournir les paramètres nécessaires à la création du type de client précisé</exception>
-        public Client CreerClient(Clientele clientele, Object position, int? quantite) {
+        public Client CreerClient(Clientele clientele, object position, int? quantite = null) {
               switch(clientele) {
                 case Clientele.SECOURS:
                     return new Secours((Position)position);
                   
                 case Clientele.INCENDIE:
                     Random rand = new Random();
-                    return new Feu((Position)position,(Byte)rand.Next(1, 6));
+                    return new Feu((Position)position,(byte)rand.Next(1, 6));
 
                 case Clientele.PASSAGERS:
-                    return new Passagers((Aeroport)position, (int)quantite);
+                    return new Passagers((Aeroport)position, quantite.Value);
 
                 case Clientele.MARCHANDISES:
-                    return new Passagers((Aeroport)position, (int)quantite);
+                    return new Passagers((Aeroport)position, quantite.Value);
 
                 case Clientele.OBSERVATION:
                     return new Observateurs((Position)position);

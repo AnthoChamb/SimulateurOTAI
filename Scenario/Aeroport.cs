@@ -97,6 +97,27 @@ namespace OTAI.Scenario {
         /// <returns>Retourne une représentation en chaine de l'aéroport</returns>
         public override string ToString() => String.Format("{0} ({1}) MinPassagers : {2}, MaxPassagers : {3}, MinMarchandise : {4}, MaxMarchandise : {5}", Nom, position, minPassagers, maxPassagers, minMarchandise, maxMarchandise);
 
+        /// <summary>Évalue si l'objet reçu en paramètre est identique à cet aéroport</summary>
+        /// <param name="obj">Objet à comparer avec cet aéroport</param>
+        /// <returns>Retourne <c>true</c> si l'objet reçu en paramètre est identique à cet aéroport; sinon <c>false</c></returns>
+        public override bool Equals(object obj) => obj is Aeroport aeroport && aeroport.nom == nom && aeroport.position == position && aeroport.minPassagers == minPassagers && aeroport.maxPassagers == maxPassagers && aeroport.minMarchandise == minMarchandise && aeroport.maxMarchandise == maxMarchandise;
+
+        #endregion
+
+        #region Opérateurs 
+
+        /// <summary>Évalue si l'aéroport a est identique à l'aéroport b</summary>
+        /// <param name="a">Aéroport a</param>
+        /// <param name="b">Aéroport</param>
+        /// <returns>Retourne <c>true</c> si les aéroports sont identiques sinon <c>false</c></returns>
+        public static bool operator ==(Aeroport a, Aeroport b) => a.Equals(b);
+
+        /// <summary>Évalue si l'aéroport a n'est pas identique à l'aéroport b</summary>
+        /// <param name="a">Aéroport a</param>
+        /// <param name="b">Aéroport</param>
+        /// <returns>Retourne <c>true</c> si les aéroports ne sont pas identiques sinon <c>false</c></returns>
+        public static bool operator !=(Aeroport a, Aeroport b) => !a.Equals(b);
+
         #endregion
     }
 }

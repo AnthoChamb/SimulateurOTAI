@@ -255,8 +255,16 @@ namespace OTAI.Simulateur {
 
         #region Opérateurs 
 
+        /// <summary>Évalue si l'aéroport a est identique à l'aéroport b</summary>
+        /// <param name="a">Aéroport a</param>
+        /// <param name="b">Aéroport</param>
+        /// <returns>Retourne <c>true</c> si les aéroports sont identiques sinon <c>false</c></returns>
         public static bool operator ==(Aeroport a, Aeroport b) => a.Equals(b);
 
+        /// <summary>Évalue si l'aéroport a n'est pas identique à l'aéroport b</summary>
+        /// <param name="a">Aéroport a</param>
+        /// <param name="b">Aéroport</param>
+        /// <returns>Retourne <c>true</c> si les aéroports ne sont pas identiques sinon <c>false</c></returns>
         public static bool operator !=(Aeroport a, Aeroport b) => !a.Equals(b);
 
         #endregion

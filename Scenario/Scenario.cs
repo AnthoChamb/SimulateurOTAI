@@ -45,8 +45,14 @@ namespace OTAI.Scenario {
         /// <param name="maxPassagers">Taux d'achalandage maximal de passagers pour une heure dans l'aéroport</param>
         /// <param name="minMarchandise">Taux d'achalandage minimal de marchandise pour une heure dans l'aéroport</param>
         /// <param name="maxMarchandise">Taux d'achalandage maximal de marchandise pour une heure dans l'aéroport</param>
+        /// <exception cref="ArgumentException">Un aéroport identique ne peut déjà exister dans ce scénario</exception>
         public void AjouterAeroport(string nom, Position position, int minPassagers, int maxPassagers, int minMarchandise, int maxMarchandise) {
-            aeroports.Add(new Aeroport(nom, position, minPassagers, maxPassagers, minMarchandise, maxMarchandise));
+            Aeroport aeroport = new Aeroport(nom, position, minPassagers, maxPassagers, minMarchandise, maxMarchandise);
+
+            if (aeroports.Contains(aeroport))
+                throw new ArgumentException("Un aéroport identique existe déjà");
+
+            aeroports.Add(aeroport);
             aeroports.Sort();
         }
 
