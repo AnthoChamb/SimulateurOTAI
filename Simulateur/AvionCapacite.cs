@@ -1,5 +1,8 @@
-﻿namespace OTAI.Simulateur {
+﻿using System.Xml.Serialization;
+
+namespace OTAI.Simulateur {
     /// <summary>Classe d'un avion avec une capacité</summary>
+    [XmlInclude(typeof(AvionPassager)), XmlInclude(typeof(AvionMarchandise))]
     public abstract class AvionCapacite : AvionTemps {
         #region Constructeurs
 

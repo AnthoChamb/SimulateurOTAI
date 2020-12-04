@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Xml.Serialization;
 
 namespace OTAI.Scenario {
     /// <summary>Classe générique abstraite des véhicules aériens. Cette clase ne peut pas être instancié</summary>
+    [XmlInclude(typeof(HelicoptereSecours)), XmlInclude(typeof(AvionObservateur)), XmlInclude(typeof(AvionTemps))]
     public abstract class Vehicule : IComparable {
         #region Données membres
 

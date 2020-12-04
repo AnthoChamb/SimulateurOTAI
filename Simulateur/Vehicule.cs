@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace OTAI.Simulateur {
     /// <summary>Classe générique abstraite des véhicules aériens. Cette clase ne peut pas être instancié</summary>
     /// <remarks>Cette clase agit également comme façade face aux états</remarks>
+    [XmlInclude(typeof(HelicoptereSecours)), XmlInclude(typeof(AvionObservateur)), XmlInclude(typeof(AvionTemps))]
     public abstract class Vehicule : IComparable {
         #region Données membres
 
@@ -136,4 +138,3 @@ namespace OTAI.Simulateur {
         #endregion
     }
 }
-

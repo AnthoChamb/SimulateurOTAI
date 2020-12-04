@@ -1,5 +1,8 @@
-﻿namespace OTAI.Scenario {
+﻿using System.Xml.Serialization;
+
+namespace OTAI.Scenario {
     /// <summary>Classe d'un avion avec une capacité</summary>
+    [XmlInclude(typeof(AvionPassager)), XmlInclude(typeof(AvionMarchandise))]
     public abstract class AvionCapacite : AvionTemps {
         #region Constructeurs
 
