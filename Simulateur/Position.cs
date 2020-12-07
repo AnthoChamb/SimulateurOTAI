@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Globalization;
 
 namespace OTAI.Simulateur {
     /// <summary>Structure d'une position cartographique</summary>
@@ -13,7 +14,7 @@ namespace OTAI.Simulateur {
 
         #region Constructeurs
 
-        /// <summary>Crée une position cartographique</summary>
+        /// <summary>Crée une position cartographique selon des coordonnées en x et y</summary>
         /// <param name="lat">Lattitude de la position</param>
         /// <param name="lon">Longitude de la position</param>
         public Position(float lat, float lon) {
@@ -21,9 +22,13 @@ namespace OTAI.Simulateur {
             this.lon = lon;
         }
 
+        /// <summary>Crée une position cartographique selon un point dans une forme aux mesures propres</summary>
+        /// <param name="point">Coordonnées en x et y b</param>
+        /// <param name="carte">Objet ayant des dimensions précises</param>
         public Position(Point point, Size carte) {
-            this.lat = 0;
-            this.lon = 0;
+
+            lon = point.X / carte.Width * 360 - 180;
+            lat = point.Y / carte.Height * 180 - 90;
         }
 
         #endregion
@@ -38,9 +43,10 @@ namespace OTAI.Simulateur {
 
         #region Méthodes publiques
 
-        public PointF Transposer(Size taille) {
-            return new PointF();
-        }
+        /// <summary>Transpose la position selon une nouvelle image pour suivre l'échelle des grandeurs</summary>
+        /// <param name="taille">Object avec une hauteur et une largeur b</param>
+        /// <returns>Retourne la position selon une nouvelle image pour suivre l'échelle des grandeurs</returns>
+        public Point Transposer(Size taille) => new Point((int)Math.Round((lon + 180) * taille.Width / 360), (int)Math.Round((lat + 90) * taille.Height / 180));
 
         /// <summary>Calcule la distance entre cette position et la position reçu en paramètre</summary>
         /// <param name="a">Position a</param>
@@ -48,8 +54,15 @@ namespace OTAI.Simulateur {
         /// <returns>Retourne la distance entre cette position et la position reçu en paramètre</returns>
         public double Distance(Position position) => Distance(this, position);
 
+        /// <summary>Obtient une représentation en chaine de la position cartographique</summary>
+        /// <returns>Retourne une représentation en chaine de la position cartographique</returns>
         public override string ToString() {
-            return base.ToString();
+            NumberFormatInfo carto = CultureInfo.InvariantCulture.NumberFormat;
+            carto.NumberDecimalSeparator = "° ";
+            carto.NumberDecimalDigits = 2;
+            carto.NegativeSign = "";
+
+            return lat.ToString("N", carto) + (lat > 0 ? "′ S, " : "′ N, ") + lon.ToString("N", carto) + (lon > 0 ? "′ O" : "′ E");
         }
 
         public override bool Equals(object obj) => obj is Position position && position.lat == lat && position.lon == lon;
