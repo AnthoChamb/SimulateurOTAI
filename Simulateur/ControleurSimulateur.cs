@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 
@@ -11,6 +13,7 @@ namespace OTAI.Simulateur {
 
         private readonly FormSimulateur interfaceSimulateur;
         private Scenario scenario;
+        private readonly BackgroundWorker simulation;
         private int vitesse;
 
         #endregion
@@ -18,6 +21,14 @@ namespace OTAI.Simulateur {
         /// <summary>Crée un controlleur du simulateur et démarre l'application</summary>
         public ControleurSimulateur() {
             interfaceSimulateur = new FormSimulateur(this);
+
+            simulation = new BackgroundWorker {
+                WorkerSupportsCancellation = true
+            };
+
+            simulation.DoWork += simulation_DoWork;
+            simulation.ProgressChanged += simulation_ProgressChanged;
+
             scenario = null;
             vitesse = 0;
 
@@ -30,19 +41,25 @@ namespace OTAI.Simulateur {
         public int Vitesse { get => vitesse; set => vitesse = value; }
 
         /// <summary>Obtient les représentations en chaines des aéroports dans la simulation</summary>
-        public string[] Aeroports { get => scenario.ChainesAeroports; }
+        public string[] ChainesAeroports { get => scenario.ChainesAeroports; }
+
+        /// <summary>Obtient la position des aéroports dans la simulation</summary>
+        public Position[] PositionsAeroports { get => scenario.PositionsAeroports; }
 
         #endregion
 
         #region Méthodes publiques
 
         public void OuvrirScenario(string chemin) {
+            if (simulation.IsBusy)
+                simulation.CancelAsync();
+
             XmlSerializer serializateur = new XmlSerializer(typeof(Scenario));
             using (StreamReader lecteur = new StreamReader(chemin)) {
                 scenario = serializateur.Deserialize(lecteur) as Scenario;
             }
 
-            // TODO : Démarrer la boucle de simulation
+            simulation.RunWorkerAsync();
         }
 
         /// <summary>Obtient les représentations en chaine des véhicules à l'aéroport de l'indice précisé</summary>
@@ -54,6 +71,19 @@ namespace OTAI.Simulateur {
         /// <param name="i">Indice de l'aéroport</param>
         /// <returns>Retourne les représentations en chaine des clients en attente à l'aéroport de l'indice précisé</returns>
         public string[] Clients(int i) => scenario.Clients(i);
+
+        #endregion
+
+        #region Événement SimulationChange
+
+        /// <summary>Délégué du gestionnaire d'événement d'un changement de la simulation</summary>
+        /// <param name="sender">Objet à l'origine de l'événement</param>
+        /// <param name="vols">Vols actuels de la simulation</param>
+        /// <param name="ecoule">Temps écoulé en secondes depuis le début de la simulation</param>
+        public delegate void SimulationChangeEventHandler(object sender, (Color, Position, Position, Position)[] vols, int ecoule);
+
+        /// <summary>Événement levé lors d'un changement dans la simulation</summary>
+        public event SimulationChangeEventHandler SimulationChange;
 
         #endregion
 
@@ -78,6 +108,37 @@ namespace OTAI.Simulateur {
                 default:
                     throw new ArgumentException("Type de véhicule inconnu");
             }
+        }
+
+        #endregion
+
+        #region Gestionnaires d'événement
+
+        /// <summary>Gestionnaire d'événement principal de la simulation</summary>
+        /// <param name="sender">Objet à l'origine de l'événement</param>
+        /// <param name="e">Paramètres de l'événement</param>
+        private void simulation_DoWork(object sender, DoWorkEventArgs e) {
+            while (!simulation.CancellationPending) {
+                scenario.Simuler(vitesse);
+                simulation.ReportProgress(vitesse);
+
+                Thread.Sleep(200);
+            }
+
+            e.Cancel = true;
+        }
+
+        /// <summary>Gestionnaire d'événement d'un changement de la simulation</summary>
+        /// <param name="sender">Objet à l'origine de l'événement</param>
+        /// <param name="e">Paramètres de l'événement</param>
+        private void simulation_ProgressChanged(object sender, ProgressChangedEventArgs e) {
+            (TypeVehicule typeVehicule, Position origine, Position position, Position destination)[] volsType = scenario.Vols;
+            (Color, Position, Position, Position)[] volsCouleur = new (Color, Position, Position, Position)[volsType.Length];
+
+            for (int i = 0; i < volsType.Length; i++)
+                volsCouleur[i] = (TypeVehiculeCouleur(volsType[i].typeVehicule), volsType[i].origine, volsType[i].position, volsType[i].destination);
+
+            SimulationChange?.Invoke(sender, volsCouleur, scenario.Ecoule);
         }
 
         #endregion

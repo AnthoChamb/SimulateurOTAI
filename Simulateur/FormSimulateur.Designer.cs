@@ -64,14 +64,15 @@
             // trackVitesse
             // 
             this.trackVitesse.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackVitesse.LargeChange = 2;
+            this.trackVitesse.LargeChange = 15;
             this.trackVitesse.Location = new System.Drawing.Point(3, 16);
-            this.trackVitesse.Maximum = 5;
-            this.trackVitesse.Minimum = 1;
+            this.trackVitesse.Maximum = 60;
             this.trackVitesse.Name = "trackVitesse";
             this.trackVitesse.Size = new System.Drawing.Size(762, 42);
+            this.trackVitesse.SmallChange = 5;
             this.trackVitesse.TabIndex = 1;
-            this.trackVitesse.Value = 3;
+            this.trackVitesse.TickFrequency = 15;
+            this.trackVitesse.Value = 30;
             this.trackVitesse.ValueChanged += new System.EventHandler(this.trackVitesse_ValueChanged);
             // 
             // statusStrip
@@ -111,14 +112,14 @@
             // itemOuvrir
             // 
             this.itemOuvrir.Name = "itemOuvrir";
-            this.itemOuvrir.Size = new System.Drawing.Size(180, 22);
+            this.itemOuvrir.Size = new System.Drawing.Size(163, 22);
             this.itemOuvrir.Text = "Ouvrir scénario...";
             this.itemOuvrir.Click += new System.EventHandler(this.itemOuvrir_Click);
             // 
             // itemQuitter
             // 
             this.itemQuitter.Name = "itemQuitter";
-            this.itemQuitter.Size = new System.Drawing.Size(180, 22);
+            this.itemQuitter.Size = new System.Drawing.Size(163, 22);
             this.itemQuitter.Text = "Quitter";
             this.itemQuitter.Click += new System.EventHandler(this.itemQuitter_Click);
             // 
