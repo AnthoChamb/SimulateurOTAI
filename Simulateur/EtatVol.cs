@@ -5,9 +5,10 @@ namespace OTAI.Simulateur {
     public class EtatVol : Etat {
         #region Données mmebres
 
-        protected Position origine, position, destination;
+        private readonly Position origine, destination;
+        protected Position position;
         protected readonly int vitesse;
-        protected double angle;
+        protected readonly double angle;
 
         #endregion
 
@@ -50,7 +51,7 @@ namespace OTAI.Simulateur {
 
             while (position > destination == origine > destination && temps > 0) {
                 position.Lon += (float)Math.Cos(angle) * vitesse;
-                position.Lon += (float)Math.Sin(angle) * vitesse;
+                position.Lat += (float)Math.Sin(angle) * vitesse;
             }
 
             if (temps > 0)

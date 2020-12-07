@@ -3,43 +3,37 @@
 namespace OTAI.Simulateur {
     /// <summary>Classe d'un état d'observation</summary>
     public class EtatObservation : EtatVol {
-        const float DISTANCE = 2;
+        private double observation;
 
         /// <summary>Crée un état d'observation</summary>
         /// <param name="destination">Position de destination de l'observation</param>
         /// <param name="vitesse">Vitesse du véhicule en observation</param>
-        public EtatObservation(Position destination, int vitesse) : base(vitesse) {
-            this.destination = destination;
+        public EtatObservation(Position origine, Position destination, int vitesse) : base(origine, destination, vitesse) => observation = Math.Atan(origine.Lon - destination.Lon / origine.Lat - destination.Lat);
 
-            Position origine = destination;
-            origine.Lon -= DISTANCE;
+        /// <summary>Simule le vol d'observation pendant le temps précisé</summary>
+        /// <param name="temps">Temps d'exécution du vol en secondes</param>
+        public override void Simuler(int temps) {
+            ecoule += temps;
 
-            this.origine = position = origine;
-
-            angle = Math.Atan(origine.Lon - destination.Lon / origine.Lat - destination.Lat);
-        }
-
-        /// <summary>Obtient la position actuelle du véhicule en observation</summary>
-        public override Position Position {
-            get {
-                float lat, lon;
-                double rad = ConvertirDegRad(((position.Lon - origine.Lon) * 360) / DISTANCE);
-
-                lat = (float)Math.Sin(rad);
-                lon = (float)Math.Cos(rad);
-
-                return new Position(lat, lon);
+            while (position.Distance(Destination) > 1 && position > Destination == Origine > Destination && temps > 0) {
+                position.Lon += (float)Math.Cos(angle) * vitesse;
+                position.Lat += (float)Math.Sin(angle) * vitesse;
             }
+
+            if (position.Distance(Destination) <= 1)
+                while (observation < angle + 2 * Math.PI && temps > 0) {
+                    observation += Math.PI / 360 * vitesse;
+                    position.Lon = Destination.Lon + (float)Math.Cos(observation);
+                    position.Lat = Destination.Lat + (float)Math.Sin(observation);
+                }
+
+            if (temps > 0)
+                LeverFinEtat(this, temps);
         }
 
         /// <summary>Obtient une représentation en chaine de l'état ainsi que du temps écoulé depuis le début de l'observation</summary>
         /// <returns>Retourne une représentation en chaine de l'état ainsi que du temps écoulé depuis le début de l'observation</returns>
         /// <remarks>Le temps est retourné sous le format <c>hh:mm:ss</c></remarks>
-        public override string ToString() => "En observation - " + base.ToString();
-
-        /// <summary>Converti un angle en degré en valeur radian</summary>
-        /// <param name="deg">Angle en degré</param>
-        /// <returns>Retourne la valeur en radian d'un angle en degré</returns>
-        private double ConvertirDegRad(double deg) => Math.PI * deg / 100;
+        public override string ToString() => "En observation - " + String.Format("{0:00}:{1:00}:{2:00}", ecoule / 60 / 60, ecoule / 60, ecoule % 60);
     }
 }

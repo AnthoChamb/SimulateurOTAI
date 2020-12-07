@@ -1,4 +1,6 @@
-﻿namespace OTAI.Simulateur {
+﻿using System;
+
+namespace OTAI.Simulateur {
     /// <summary>Classe d'un avion observateur</summary>
     public class AvionObservateur : Vehicule {
         #region Constructeurs
@@ -21,9 +23,11 @@
         /// <param name="destination">Position de destination de l'observation</param>
         public void EnvoyerObservation(Position origine, Position destination) {
             // Enfile les états nécessaire à une observation
-            etats.Enqueue(new EtatVol(origine, destination, Vitesse));
-            etats.Enqueue(new EtatObservation(destination, Vitesse));
-            etats.Enqueue(new EtatVol(destination, origine, Vitesse));
+            etats.Enqueue(new EtatObservation(origine, destination, Vitesse));
+
+            double angle = Math.Atan(origine.Lon - destination.Lon / origine.Lat - destination.Lat);
+
+            etats.Enqueue(new EtatVol(new Position(destination.Lat + (float)Math.Sin(angle), destination.Lon + (float)Math.Cos(angle)), origine, Vitesse));
             etats.Enqueue(new EtatAttente());
 
             Envoyer();

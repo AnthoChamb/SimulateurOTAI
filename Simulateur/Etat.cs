@@ -3,7 +3,7 @@
 namespace OTAI.Simulateur {
     /// <summary>Classe abstraite d'un état. Cette classe ne peut pas être instancié</summary>
     public abstract class Etat {
-        private int ecoule;
+        protected int ecoule;
 
         /// <summary>Constructeur de base d'un état</summary>
         public Etat() => ecoule = 0;
