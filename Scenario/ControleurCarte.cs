@@ -1,33 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Forms;
 
 namespace OTAI.Scenario {
-    public class ControleurCarte {
-
-        #region Données membres
-
-        private FormCarte interfaceCarte;
-
-        #endregion
-
-        #region Constructeurs
-
-        public ControleurCarte() {
-            interfaceCarte = new FormCarte();
+    /// <summary>Classe responsable de la sélection d'une position sur la carte</summary>
+    public static class ControleurCarte {
+        /// <summary>Sélectionne une position sur la carte</summary>
+        /// <returns>Retourne la position sélectionnée sur la carte ou <c>null</c> si le formulaire est fermé avant</returns>
+        public static Position? SelectionnerPosition() {
+            FormCarte carte = new FormCarte();
+            if (carte.ShowDialog() == DialogResult.OK)
+                return new Position(carte.Position, carte.Taille);
+            return null;
         }
-
-        #endregion
-
-
-        #region Méthodes publiques
-
-        public Position SelectionnerPosition() {
-            return new Position();
-        }
-
-        #endregion
     }
 }
