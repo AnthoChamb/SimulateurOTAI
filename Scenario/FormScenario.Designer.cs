@@ -245,6 +245,7 @@
             this.btnAeroPosition.TabIndex = 4;
             this.btnAeroPosition.Text = "Choisir Position";
             this.btnAeroPosition.UseVisualStyleBackColor = true;
+            this.btnAeroPosition.Click += new System.EventHandler(this.btnAeroPosition_Click);
             // 
             // txtAeroPosition
             // 

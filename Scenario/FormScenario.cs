@@ -171,5 +171,8 @@ namespace OTAI.Scenario {
             else
                 lstVehicules.Items.RemoveAt(lstVehicules.SelectedIndex);
         }
+
+        private void btnAeroPosition_Click(object sender, System.EventArgs e) {
+        }
     }
 }
