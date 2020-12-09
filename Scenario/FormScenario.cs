@@ -78,7 +78,7 @@ namespace OTAI.Scenario {
         }
 
         private void Enregistrer() {
-            OpenFileDialog enregistrer = new OpenFileDialog {
+            SaveFileDialog enregistrer = new SaveFileDialog {
                 Title = "Enregistrer scénario",
                 Filter = "Scénario Xml|*.xml"
             };
@@ -111,7 +111,7 @@ namespace OTAI.Scenario {
             if(lstAeroports.SelectedIndex == -1) {
                 MessageBox.Show("Veuillez choisir dans quel aéoroport vous désirez ajouter le véhicule.");
             }
-            else if(cmbVehiculeType.SelectedValue == null)
+            else if(cmbVehiculeType.SelectedIndex == -1)
                 MessageBox.Show("Veuillez choisir un type de véhicule.");
             else if(txtVehiculeNom.Text == null)
                 MessageBox.Show("Veuillez entrer un nom de véhicule.");
