@@ -57,12 +57,10 @@ namespace OTAI.Simulateur {
         /// <summary>Obtient une représentation en chaine de la position cartographique</summary>
         /// <returns>Retourne une représentation en chaine de la position cartographique</returns>
         public override string ToString() {
-            NumberFormatInfo carto = CultureInfo.InvariantCulture.NumberFormat;
-            carto.NumberDecimalSeparator = "° ";
-            carto.NumberDecimalDigits = 2;
-            carto.NegativeSign = "";
+            double latitude = Math.Floor(lat);
+            double longitude = Math.Floor(lon);
 
-            return lat.ToString("N", carto) + (lat > 0 ? "′ S, " : "′ N, ") + lon.ToString("N", carto) + (lon > 0 ? "′ O" : "′ E");
+            return String.Format("{0}° {1:00}′ {2}, {3}° {4:00}′ {5}", Math.Abs(latitude), Math.Abs(Math.Round(lat - latitude * 100)) / 90 * 100, lat > 0 ? 'S' : 'N', Math.Abs(longitude), Math.Abs(Math.Round(lon - longitude * 100)) / 90 * 100, lon > 0 ? 'O' : 'E');
         }
 
         public override bool Equals(object obj) => obj is Position position && position.lat == lat && position.lon == lon;
