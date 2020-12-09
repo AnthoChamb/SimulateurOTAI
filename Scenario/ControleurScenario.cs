@@ -19,6 +19,7 @@ namespace OTAI.Scenario {
 
         public ControleurScenario() {
             interfaceScenario = new FormScenario(this);
+            scenario = new Scenario();
         }
 
         #endregion

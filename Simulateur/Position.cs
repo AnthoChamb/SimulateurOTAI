@@ -26,9 +26,8 @@ namespace OTAI.Simulateur {
         /// <param name="point">Coordonnées en x et y b</param>
         /// <param name="carte">Objet ayant des dimensions précises</param>
         public Position(Point point, Size carte) {
-
-            lon = point.X / carte.Width * 360 - 180;
-            lat = point.Y / carte.Height * 180 - 90;
+            lon = (float)(point.X * 360.0 / carte.Width - 180);
+            lat = (float)(point.Y * 180.0 / carte.Height - 90);
         }
 
         #endregion
@@ -60,7 +59,7 @@ namespace OTAI.Simulateur {
             double latitude = Math.Floor(lat);
             double longitude = Math.Floor(lon);
 
-            return String.Format("{0}° {1:00}′ {2}, {3}° {4:00}′ {5}", Math.Abs(latitude), Math.Abs(Math.Round(lat - latitude * 100)) / 90 * 100, lat > 0 ? 'S' : 'N', Math.Abs(longitude), Math.Abs(Math.Round(lon - longitude * 100)) / 90 * 100, lon > 0 ? 'O' : 'E');
+            return String.Format("{0}° {1:00}′ {2}, {3}° {4:00}′ {5}", Math.Abs(latitude), Math.Abs(Math.Round(lat - latitude * 100)) / 90, lat > 0 ? 'S' : 'N', Math.Abs(longitude), Math.Abs(Math.Round(lon - longitude * 100)) / 90, lon > 0 ? 'O' : 'E');
         }
 
         public override bool Equals(object obj) => obj is Position position && position.lat == lat && position.lon == lon;

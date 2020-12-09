@@ -102,8 +102,7 @@ namespace OTAI.Scenario {
             else if (txtAeroPosition.Text == null)
                 MessageBox.Show("Veuillez choisir la position de l'aéroport.");
             else {
-                Position position = new Position(1,1);
-                controleur.AjouterAeroport(txtAeroNom.Text, position, (int)numPassagersMin.Value, (int)numPassagersMax.Value, (int)numMarchandiseMin.Value, (int)numMarchandiseMax.Value);
+                controleur.AjouterAeroport(txtAeroNom.Text, (Position)txtAeroPosition.Tag, (int)numPassagersMin.Value, (int)numPassagersMax.Value, (int)numMarchandiseMin.Value, (int)numMarchandiseMax.Value);
                 ChargerAeroports();
             }
         }
@@ -173,6 +172,11 @@ namespace OTAI.Scenario {
         }
 
         private void btnAeroPosition_Click(object sender, System.EventArgs e) {
+            Position? position = ControleurCarte.SelectionnerPosition();
+            if (position != null) {
+                txtAeroPosition.Tag = position.Value;
+                txtAeroPosition.Text = position.ToString();
+            }
         }
     }
 }
