@@ -46,6 +46,25 @@ namespace OTAI.Scenario {
             cmbVehiculeType.Items.Add("Avion Citerne");
         }
 
+        private void RestaurerValeurs() {
+            txtAeroNom.Text = null;
+            txtAeroPosition.Text = null;
+            txtAeroPosition.Tag = null;
+            txtVehiculeNom.Text = null;
+
+            numPassagersMin.Value = 1;
+            numPassagersMax.Value = 1;
+            numMarchandiseMin.Value = 1;
+            numMarchandiseMax.Value = 1;
+            numVitesse.Value = 1;
+            numTempsEmbarquement.Value = 1;
+            numTempsDébarquement.Value = 1;
+            numTempsEntretien.Value = 1;
+            numCapacite.Value = 1;
+
+            cmbVehiculeType.SelectedIndex = -1;
+        }
+
         #endregion
 
         #region Méthodes publiques
@@ -104,6 +123,7 @@ namespace OTAI.Scenario {
             else {
                 controleur.AjouterAeroport(txtAeroNom.Text, (Position)txtAeroPosition.Tag, (int)numPassagersMin.Value, (int)numPassagersMax.Value, (int)numMarchandiseMin.Value, (int)numMarchandiseMax.Value);
                 ChargerAeroports();
+                RestaurerValeurs();
             }
         }
 
@@ -118,6 +138,7 @@ namespace OTAI.Scenario {
             else {
                 controleur.AjouterVehicule(lstAeroports.SelectedIndex, (TypeVehicule)cmbVehiculeType.SelectedIndex, txtVehiculeNom.Text, (int)numVitesse.Value, (int)numTempsEmbarquement.Value, (int)numTempsDébarquement.Value, (int)numTempsEntretien.Value, (int)numCapacite.Value);
                 ChargerVehicules();
+                RestaurerValeurs();
             }
         }
 
@@ -126,6 +147,8 @@ namespace OTAI.Scenario {
             numTempsDébarquement.Enabled = cmbVehiculeType.SelectedIndex > 1;
             numTempsEntretien.Enabled = cmbVehiculeType.SelectedIndex > 1;
             numCapacite.Enabled = (cmbVehiculeType.SelectedIndex & 2) == 2;
+
+            
         }
 
         private void lstAeroports_SelectedIndexChanged(object sender, System.EventArgs e) {
