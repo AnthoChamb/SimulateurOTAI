@@ -56,7 +56,7 @@ namespace OTAI.Scenario {
             if (lstAeroports.SelectedIndex == -1)
                 MessageBox.Show("Veuillez sélectionner un aéroport à supprimer.");
             else {
-                lstAeroports.Items.RemoveAt(lstAeroports.SelectedIndex);
+                controleur.SupprimerAeroport(lstAeroports.SelectedIndex);
                 ChargerAeroports();
             }
         }
@@ -135,8 +135,11 @@ namespace OTAI.Scenario {
         private void btnSupprimerVehicule_Click(object sender, System.EventArgs e) {
             if (lstVehicules.SelectedIndex == -1)
                 MessageBox.Show("Veuillez sélectionner un véhicule à supprimer.");
-            else
-                lstVehicules.Items.RemoveAt(lstVehicules.SelectedIndex);
+            else {
+                controleur.SupprimerVehicule(lstAeroports.SelectedIndex, lstVehicules.SelectedIndex);
+                ChargerVehicules();
+                //lstVehicules.Items.RemoveAt(lstVehicules.SelectedIndex);
+            }
         }
 
         private void btnAeroPosition_Click(object sender, System.EventArgs e) {
@@ -145,6 +148,22 @@ namespace OTAI.Scenario {
                 txtAeroPosition.Tag = position.Value;
                 txtAeroPosition.Text = position.ToString();
             }
+        }
+
+        private void numPassagersMin_ValueChanged(object sender, System.EventArgs e) {
+            numPassagersMax.Minimum = numPassagersMin.Value;
+        }
+
+        private void numPassagersMax_ValueChanged(object sender, System.EventArgs e) {
+            numPassagersMin.Maximum = numPassagersMax.Value;
+        }
+
+        private void numMarchandiseMin_ValueChanged(object sender, System.EventArgs e) {
+            numMarchandiseMax.Minimum = numMarchandiseMin.Value;
+        }
+
+        private void numMarchandiseMax_ValueChanged(object sender, System.EventArgs e) {
+            numMarchandiseMin.Maximum = numMarchandiseMax.Value;
         }
     }
 }

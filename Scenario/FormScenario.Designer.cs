@@ -176,16 +176,43 @@
             // numMarchandiseMax
             // 
             this.numMarchandiseMax.Location = new System.Drawing.Point(300, 116);
+            this.numMarchandiseMax.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numMarchandiseMax.Name = "numMarchandiseMax";
             this.numMarchandiseMax.Size = new System.Drawing.Size(80, 20);
             this.numMarchandiseMax.TabIndex = 12;
+            this.numMarchandiseMax.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numMarchandiseMax.ValueChanged += new System.EventHandler(this.numMarchandiseMax_ValueChanged);
             // 
             // numMarchandiseMin
             // 
             this.numMarchandiseMin.Location = new System.Drawing.Point(104, 116);
+            this.numMarchandiseMin.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numMarchandiseMin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numMarchandiseMin.Name = "numMarchandiseMin";
             this.numMarchandiseMin.Size = new System.Drawing.Size(80, 20);
             this.numMarchandiseMin.TabIndex = 11;
+            this.numMarchandiseMin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numMarchandiseMin.ValueChanged += new System.EventHandler(this.numMarchandiseMin_ValueChanged);
             // 
             // lblAeroMaxMarch
             // 
@@ -208,16 +235,43 @@
             // numPassagersMax
             // 
             this.numPassagersMax.Location = new System.Drawing.Point(300, 85);
+            this.numPassagersMax.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numPassagersMax.Name = "numPassagersMax";
             this.numPassagersMax.Size = new System.Drawing.Size(80, 20);
             this.numPassagersMax.TabIndex = 8;
+            this.numPassagersMax.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numPassagersMax.ValueChanged += new System.EventHandler(this.numPassagersMax_ValueChanged);
             // 
             // numPassagersMin
             // 
             this.numPassagersMin.Location = new System.Drawing.Point(104, 85);
+            this.numPassagersMin.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numPassagersMin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numPassagersMin.Name = "numPassagersMin";
             this.numPassagersMin.Size = new System.Drawing.Size(80, 20);
             this.numPassagersMin.TabIndex = 7;
+            this.numPassagersMin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numPassagersMin.ValueChanged += new System.EventHandler(this.numPassagersMin_ValueChanged);
             // 
             // label1
             // 
