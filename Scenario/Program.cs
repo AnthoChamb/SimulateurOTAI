@@ -10,7 +10,7 @@ namespace OTAI.Scenario {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormScenario());
+            Application.Run(new FormScenario(new ControleurScenario()));
         }
     }
 }

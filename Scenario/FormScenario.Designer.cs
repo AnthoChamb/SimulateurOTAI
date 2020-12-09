@@ -27,15 +27,16 @@
             this.btnSupprimerAeroport = new System.Windows.Forms.Button();
             this.lstAeroports = new System.Windows.Forms.ListBox();
             this.groupVehicules = new System.Windows.Forms.GroupBox();
+            this.btnSupprimerVehicule = new System.Windows.Forms.Button();
             this.lstVehicules = new System.Windows.Forms.ListBox();
             this.groupAjoutAeroport = new System.Windows.Forms.GroupBox();
             this.btnAjoutAeroport = new System.Windows.Forms.Button();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.numMarchandiseMax = new System.Windows.Forms.NumericUpDown();
+            this.numMarchandiseMin = new System.Windows.Forms.NumericUpDown();
             this.lblAeroMaxMarch = new System.Windows.Forms.Label();
             this.lblAeroMinMarch = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numPassagersMax = new System.Windows.Forms.NumericUpDown();
+            this.numPassagersMin = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.lblAeroMinPassagers = new System.Windows.Forms.Label();
             this.btnAeroPosition = new System.Windows.Forms.Button();
@@ -44,40 +45,39 @@
             this.lblAeroNom = new System.Windows.Forms.Label();
             this.txtAeroNom = new System.Windows.Forms.TextBox();
             this.groupAjoutVéhicule = new System.Windows.Forms.GroupBox();
+            this.btnAjoutVehicule = new System.Windows.Forms.Button();
+            this.txtVehiculeNom = new System.Windows.Forms.TextBox();
+            this.numCapacite = new System.Windows.Forms.NumericUpDown();
+            this.numTempsEntretien = new System.Windows.Forms.NumericUpDown();
+            this.numTempsDébarquement = new System.Windows.Forms.NumericUpDown();
+            this.numTempsEmbarquement = new System.Windows.Forms.NumericUpDown();
+            this.numVitesse = new System.Windows.Forms.NumericUpDown();
+            this.lblCapacité = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblTempsDébarquement = new System.Windows.Forms.Label();
+            this.lblTempsEmbarquement = new System.Windows.Forms.Label();
             this.lblVitesse = new System.Windows.Forms.Label();
             this.lblVehiculeNom = new System.Windows.Forms.Label();
             this.lblVehiculeType = new System.Windows.Forms.Label();
             this.cmbVehiculeType = new System.Windows.Forms.ComboBox();
-            this.lblTempsEmbarquement = new System.Windows.Forms.Label();
-            this.lblTempsDébarquement = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblCapacité = new System.Windows.Forms.Label();
-            this.numVitesse = new System.Windows.Forms.NumericUpDown();
-            this.numTempsEmbarquement = new System.Windows.Forms.NumericUpDown();
-            this.numTempsDébarquement = new System.Windows.Forms.NumericUpDown();
-            this.numTempsEntretien = new System.Windows.Forms.NumericUpDown();
-            this.numCapacite = new System.Windows.Forms.NumericUpDown();
-            this.txtVehiculeNom = new System.Windows.Forms.TextBox();
-            this.btnAjoutVehicule = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.menuFichier = new System.Windows.Forms.ToolStripMenuItem();
             this.itemCharger = new System.Windows.Forms.ToolStripMenuItem();
-            this.itemQuitter = new System.Windows.Forms.ToolStripMenuItem();
             this.itemEnregistrer = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemQuitter = new System.Windows.Forms.ToolStripMenuItem();
             this.groupAeroports.SuspendLayout();
             this.groupVehicules.SuspendLayout();
             this.groupAjoutAeroport.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMarchandiseMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMarchandiseMin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPassagersMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPassagersMin)).BeginInit();
             this.groupAjoutVéhicule.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numVitesse)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numTempsEmbarquement)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numTempsDébarquement)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numTempsEntretien)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCapacite)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTempsEntretien)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTempsDébarquement)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTempsEmbarquement)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numVitesse)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -109,10 +109,11 @@
             this.lstAeroports.Name = "lstAeroports";
             this.lstAeroports.Size = new System.Drawing.Size(543, 134);
             this.lstAeroports.TabIndex = 0;
+            this.lstAeroports.SelectedIndexChanged += new System.EventHandler(this.lstAeroports_SelectedIndexChanged);
             // 
             // groupVehicules
             // 
-            this.groupVehicules.Controls.Add(this.button1);
+            this.groupVehicules.Controls.Add(this.btnSupprimerVehicule);
             this.groupVehicules.Controls.Add(this.lstVehicules);
             this.groupVehicules.Location = new System.Drawing.Point(12, 221);
             this.groupVehicules.Name = "groupVehicules";
@@ -120,6 +121,16 @@
             this.groupVehicules.TabIndex = 1;
             this.groupVehicules.TabStop = false;
             this.groupVehicules.Text = "Vehicules";
+            // 
+            // btnSupprimerVehicule
+            // 
+            this.btnSupprimerVehicule.Location = new System.Drawing.Point(241, 241);
+            this.btnSupprimerVehicule.Name = "btnSupprimerVehicule";
+            this.btnSupprimerVehicule.Size = new System.Drawing.Size(75, 23);
+            this.btnSupprimerVehicule.TabIndex = 2;
+            this.btnSupprimerVehicule.Text = "Supprimer Aéroport";
+            this.btnSupprimerVehicule.UseVisualStyleBackColor = true;
+            this.btnSupprimerVehicule.Click += new System.EventHandler(this.btnSupprimerVehicule_Click);
             // 
             // lstVehicules
             // 
@@ -132,12 +143,12 @@
             // groupAjoutAeroport
             // 
             this.groupAjoutAeroport.Controls.Add(this.btnAjoutAeroport);
-            this.groupAjoutAeroport.Controls.Add(this.numericUpDown3);
-            this.groupAjoutAeroport.Controls.Add(this.numericUpDown4);
+            this.groupAjoutAeroport.Controls.Add(this.numMarchandiseMax);
+            this.groupAjoutAeroport.Controls.Add(this.numMarchandiseMin);
             this.groupAjoutAeroport.Controls.Add(this.lblAeroMaxMarch);
             this.groupAjoutAeroport.Controls.Add(this.lblAeroMinMarch);
-            this.groupAjoutAeroport.Controls.Add(this.numericUpDown2);
-            this.groupAjoutAeroport.Controls.Add(this.numericUpDown1);
+            this.groupAjoutAeroport.Controls.Add(this.numPassagersMax);
+            this.groupAjoutAeroport.Controls.Add(this.numPassagersMin);
             this.groupAjoutAeroport.Controls.Add(this.label1);
             this.groupAjoutAeroport.Controls.Add(this.lblAeroMinPassagers);
             this.groupAjoutAeroport.Controls.Add(this.btnAeroPosition);
@@ -160,20 +171,21 @@
             this.btnAjoutAeroport.TabIndex = 13;
             this.btnAjoutAeroport.Text = "Ajouter Aéroport";
             this.btnAjoutAeroport.UseVisualStyleBackColor = true;
+            this.btnAjoutAeroport.Click += new System.EventHandler(this.btnAjoutAeroport_Click);
             // 
-            // numericUpDown3
+            // numMarchandiseMax
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(300, 116);
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(80, 20);
-            this.numericUpDown3.TabIndex = 12;
+            this.numMarchandiseMax.Location = new System.Drawing.Point(300, 116);
+            this.numMarchandiseMax.Name = "numMarchandiseMax";
+            this.numMarchandiseMax.Size = new System.Drawing.Size(80, 20);
+            this.numMarchandiseMax.TabIndex = 12;
             // 
-            // numericUpDown4
+            // numMarchandiseMin
             // 
-            this.numericUpDown4.Location = new System.Drawing.Point(104, 116);
-            this.numericUpDown4.Name = "numericUpDown4";
-            this.numericUpDown4.Size = new System.Drawing.Size(80, 20);
-            this.numericUpDown4.TabIndex = 11;
+            this.numMarchandiseMin.Location = new System.Drawing.Point(104, 116);
+            this.numMarchandiseMin.Name = "numMarchandiseMin";
+            this.numMarchandiseMin.Size = new System.Drawing.Size(80, 20);
+            this.numMarchandiseMin.TabIndex = 11;
             // 
             // lblAeroMaxMarch
             // 
@@ -193,19 +205,19 @@
             this.lblAeroMinMarch.TabIndex = 9;
             this.lblAeroMinMarch.Text = "Min. Marchandise";
             // 
-            // numericUpDown2
+            // numPassagersMax
             // 
-            this.numericUpDown2.Location = new System.Drawing.Point(300, 85);
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(80, 20);
-            this.numericUpDown2.TabIndex = 8;
+            this.numPassagersMax.Location = new System.Drawing.Point(300, 85);
+            this.numPassagersMax.Name = "numPassagersMax";
+            this.numPassagersMax.Size = new System.Drawing.Size(80, 20);
+            this.numPassagersMax.TabIndex = 8;
             // 
-            // numericUpDown1
+            // numPassagersMin
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(104, 85);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(80, 20);
-            this.numericUpDown1.TabIndex = 7;
+            this.numPassagersMin.Location = new System.Drawing.Point(104, 85);
+            this.numPassagersMin.Name = "numPassagersMin";
+            this.numPassagersMin.Size = new System.Drawing.Size(80, 20);
+            this.numPassagersMin.TabIndex = 7;
             // 
             // label1
             // 
@@ -291,6 +303,157 @@
             this.groupAjoutVéhicule.TabStop = false;
             this.groupAjoutVéhicule.Text = "Ajouter Véhicule";
             // 
+            // btnAjoutVehicule
+            // 
+            this.btnAjoutVehicule.Location = new System.Drawing.Point(167, 234);
+            this.btnAjoutVehicule.Name = "btnAjoutVehicule";
+            this.btnAjoutVehicule.Size = new System.Drawing.Size(170, 23);
+            this.btnAjoutVehicule.TabIndex = 14;
+            this.btnAjoutVehicule.Text = "Ajouter Véhicule";
+            this.btnAjoutVehicule.UseVisualStyleBackColor = true;
+            this.btnAjoutVehicule.Click += new System.EventHandler(this.btnAjoutVehicule_Click);
+            // 
+            // txtVehiculeNom
+            // 
+            this.txtVehiculeNom.Location = new System.Drawing.Point(90, 67);
+            this.txtVehiculeNom.Name = "txtVehiculeNom";
+            this.txtVehiculeNom.Size = new System.Drawing.Size(261, 20);
+            this.txtVehiculeNom.TabIndex = 13;
+            // 
+            // numCapacite
+            // 
+            this.numCapacite.Enabled = false;
+            this.numCapacite.Location = new System.Drawing.Point(144, 208);
+            this.numCapacite.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numCapacite.Name = "numCapacite";
+            this.numCapacite.ReadOnly = true;
+            this.numCapacite.Size = new System.Drawing.Size(80, 20);
+            this.numCapacite.TabIndex = 12;
+            this.numCapacite.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numTempsEntretien
+            // 
+            this.numTempsEntretien.Enabled = false;
+            this.numTempsEntretien.Location = new System.Drawing.Point(144, 173);
+            this.numTempsEntretien.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numTempsEntretien.Name = "numTempsEntretien";
+            this.numTempsEntretien.ReadOnly = true;
+            this.numTempsEntretien.Size = new System.Drawing.Size(80, 20);
+            this.numTempsEntretien.TabIndex = 11;
+            this.numTempsEntretien.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numTempsDébarquement
+            // 
+            this.numTempsDébarquement.Enabled = false;
+            this.numTempsDébarquement.Location = new System.Drawing.Point(361, 139);
+            this.numTempsDébarquement.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numTempsDébarquement.Name = "numTempsDébarquement";
+            this.numTempsDébarquement.ReadOnly = true;
+            this.numTempsDébarquement.Size = new System.Drawing.Size(80, 20);
+            this.numTempsDébarquement.TabIndex = 10;
+            this.numTempsDébarquement.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numTempsEmbarquement
+            // 
+            this.numTempsEmbarquement.Enabled = false;
+            this.numTempsEmbarquement.Location = new System.Drawing.Point(144, 139);
+            this.numTempsEmbarquement.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numTempsEmbarquement.Name = "numTempsEmbarquement";
+            this.numTempsEmbarquement.ReadOnly = true;
+            this.numTempsEmbarquement.Size = new System.Drawing.Size(80, 20);
+            this.numTempsEmbarquement.TabIndex = 9;
+            this.numTempsEmbarquement.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numVitesse
+            // 
+            this.numVitesse.Location = new System.Drawing.Point(90, 102);
+            this.numVitesse.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numVitesse.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numVitesse.Name = "numVitesse";
+            this.numVitesse.Size = new System.Drawing.Size(80, 20);
+            this.numVitesse.TabIndex = 8;
+            this.numVitesse.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // lblCapacité
+            // 
+            this.lblCapacité.AutoSize = true;
+            this.lblCapacité.Location = new System.Drawing.Point(25, 210);
+            this.lblCapacité.Name = "lblCapacité";
+            this.lblCapacité.Size = new System.Drawing.Size(49, 13);
+            this.lblCapacité.TabIndex = 7;
+            this.lblCapacité.Text = "Capacité";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(25, 175);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(84, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Temps Entretien";
+            // 
+            // lblTempsDébarquement
+            // 
+            this.lblTempsDébarquement.AutoSize = true;
+            this.lblTempsDébarquement.Location = new System.Drawing.Point(243, 141);
+            this.lblTempsDébarquement.Name = "lblTempsDébarquement";
+            this.lblTempsDébarquement.Size = new System.Drawing.Size(112, 13);
+            this.lblTempsDébarquement.TabIndex = 5;
+            this.lblTempsDébarquement.Text = "Temps Débarquement";
+            // 
+            // lblTempsEmbarquement
+            // 
+            this.lblTempsEmbarquement.AutoSize = true;
+            this.lblTempsEmbarquement.Location = new System.Drawing.Point(25, 141);
+            this.lblTempsEmbarquement.Name = "lblTempsEmbarquement";
+            this.lblTempsEmbarquement.Size = new System.Drawing.Size(113, 13);
+            this.lblTempsEmbarquement.TabIndex = 4;
+            this.lblTempsEmbarquement.Text = "Temps Embarquement";
+            // 
             // lblVitesse
             // 
             this.lblVitesse.AutoSize = true;
@@ -325,106 +488,7 @@
             this.cmbVehiculeType.Name = "cmbVehiculeType";
             this.cmbVehiculeType.Size = new System.Drawing.Size(261, 21);
             this.cmbVehiculeType.TabIndex = 0;
-            // 
-            // lblTempsEmbarquement
-            // 
-            this.lblTempsEmbarquement.AutoSize = true;
-            this.lblTempsEmbarquement.Location = new System.Drawing.Point(21, 139);
-            this.lblTempsEmbarquement.Name = "lblTempsEmbarquement";
-            this.lblTempsEmbarquement.Size = new System.Drawing.Size(113, 13);
-            this.lblTempsEmbarquement.TabIndex = 4;
-            this.lblTempsEmbarquement.Text = "Temps Embarquement";
-            // 
-            // lblTempsDébarquement
-            // 
-            this.lblTempsDébarquement.AutoSize = true;
-            this.lblTempsDébarquement.Location = new System.Drawing.Point(239, 139);
-            this.lblTempsDébarquement.Name = "lblTempsDébarquement";
-            this.lblTempsDébarquement.Size = new System.Drawing.Size(112, 13);
-            this.lblTempsDébarquement.TabIndex = 5;
-            this.lblTempsDébarquement.Text = "Temps Débarquement";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 173);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Temps Entretien";
-            // 
-            // lblCapacité
-            // 
-            this.lblCapacité.AutoSize = true;
-            this.lblCapacité.Location = new System.Drawing.Point(21, 208);
-            this.lblCapacité.Name = "lblCapacité";
-            this.lblCapacité.Size = new System.Drawing.Size(49, 13);
-            this.lblCapacité.TabIndex = 7;
-            this.lblCapacité.Text = "Capacité";
-            // 
-            // numVitesse
-            // 
-            this.numVitesse.Location = new System.Drawing.Point(90, 102);
-            this.numVitesse.Name = "numVitesse";
-            this.numVitesse.Size = new System.Drawing.Size(80, 20);
-            this.numVitesse.TabIndex = 8;
-            // 
-            // numTempsEmbarquement
-            // 
-            this.numTempsEmbarquement.Location = new System.Drawing.Point(140, 137);
-            this.numTempsEmbarquement.Name = "numTempsEmbarquement";
-            this.numTempsEmbarquement.ReadOnly = true;
-            this.numTempsEmbarquement.Size = new System.Drawing.Size(80, 20);
-            this.numTempsEmbarquement.TabIndex = 9;
-            // 
-            // numTempsDébarquement
-            // 
-            this.numTempsDébarquement.Location = new System.Drawing.Point(357, 137);
-            this.numTempsDébarquement.Name = "numTempsDébarquement";
-            this.numTempsDébarquement.ReadOnly = true;
-            this.numTempsDébarquement.Size = new System.Drawing.Size(80, 20);
-            this.numTempsDébarquement.TabIndex = 10;
-            // 
-            // numTempsEntretien
-            // 
-            this.numTempsEntretien.Location = new System.Drawing.Point(140, 171);
-            this.numTempsEntretien.Name = "numTempsEntretien";
-            this.numTempsEntretien.ReadOnly = true;
-            this.numTempsEntretien.Size = new System.Drawing.Size(80, 20);
-            this.numTempsEntretien.TabIndex = 11;
-            // 
-            // numCapacite
-            // 
-            this.numCapacite.Location = new System.Drawing.Point(140, 206);
-            this.numCapacite.Name = "numCapacite";
-            this.numCapacite.ReadOnly = true;
-            this.numCapacite.Size = new System.Drawing.Size(80, 20);
-            this.numCapacite.TabIndex = 12;
-            // 
-            // txtVehiculeNom
-            // 
-            this.txtVehiculeNom.Location = new System.Drawing.Point(90, 67);
-            this.txtVehiculeNom.Name = "txtVehiculeNom";
-            this.txtVehiculeNom.Size = new System.Drawing.Size(261, 20);
-            this.txtVehiculeNom.TabIndex = 13;
-            // 
-            // btnAjoutVehicule
-            // 
-            this.btnAjoutVehicule.Location = new System.Drawing.Point(163, 232);
-            this.btnAjoutVehicule.Name = "btnAjoutVehicule";
-            this.btnAjoutVehicule.Size = new System.Drawing.Size(170, 23);
-            this.btnAjoutVehicule.TabIndex = 14;
-            this.btnAjoutVehicule.Text = "Ajouter Véhicule";
-            this.btnAjoutVehicule.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(241, 241);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Supprimer Aéroport";
-            this.button1.UseVisualStyleBackColor = true;
+            this.cmbVehiculeType.SelectedIndexChanged += new System.EventHandler(this.cmbVehiculeType_SelectedIndexChanged);
             // 
             // menuStrip
             // 
@@ -449,23 +513,23 @@
             // itemCharger
             // 
             this.itemCharger.Name = "itemCharger";
-            this.itemCharger.Size = new System.Drawing.Size(180, 22);
+            this.itemCharger.Size = new System.Drawing.Size(173, 22);
             this.itemCharger.Text = "Charger Scénario...";
             this.itemCharger.Click += new System.EventHandler(this.itemCharger_Click);
-            // 
-            // itemQuitter
-            // 
-            this.itemQuitter.Name = "itemQuitter";
-            this.itemQuitter.Size = new System.Drawing.Size(180, 22);
-            this.itemQuitter.Text = "Quitter";
-            this.itemQuitter.Click += new System.EventHandler(this.itemQuitter_Click);
             // 
             // itemEnregistrer
             // 
             this.itemEnregistrer.Name = "itemEnregistrer";
-            this.itemEnregistrer.Size = new System.Drawing.Size(180, 22);
+            this.itemEnregistrer.Size = new System.Drawing.Size(173, 22);
             this.itemEnregistrer.Text = "Enregistrer";
             this.itemEnregistrer.Click += new System.EventHandler(this.itemEnregistrer_Click);
+            // 
+            // itemQuitter
+            // 
+            this.itemQuitter.Name = "itemQuitter";
+            this.itemQuitter.Size = new System.Drawing.Size(173, 22);
+            this.itemQuitter.Text = "Quitter";
+            this.itemQuitter.Click += new System.EventHandler(this.itemQuitter_Click);
             // 
             // FormScenario
             // 
@@ -483,17 +547,17 @@
             this.groupVehicules.ResumeLayout(false);
             this.groupAjoutAeroport.ResumeLayout(false);
             this.groupAjoutAeroport.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMarchandiseMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMarchandiseMin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPassagersMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numPassagersMin)).EndInit();
             this.groupAjoutVéhicule.ResumeLayout(false);
             this.groupAjoutVéhicule.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numVitesse)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numTempsEmbarquement)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numTempsDébarquement)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numTempsEntretien)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCapacite)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTempsEntretien)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTempsDébarquement)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numTempsEmbarquement)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numVitesse)).EndInit();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -510,8 +574,8 @@
         private System.Windows.Forms.GroupBox groupAjoutAeroport;
         private System.Windows.Forms.Label lblAeroNom;
         private System.Windows.Forms.TextBox txtAeroNom;
-        private System.Windows.Forms.NumericUpDown numericUpDown2;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numPassagersMax;
+        private System.Windows.Forms.NumericUpDown numPassagersMin;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblAeroMinPassagers;
         private System.Windows.Forms.Button btnAeroPosition;
@@ -519,8 +583,8 @@
         private System.Windows.Forms.Label lblAeroPosition;
         private System.Windows.Forms.Button btnSupprimerAeroport;
         private System.Windows.Forms.Button btnAjoutAeroport;
-        private System.Windows.Forms.NumericUpDown numericUpDown3;
-        private System.Windows.Forms.NumericUpDown numericUpDown4;
+        private System.Windows.Forms.NumericUpDown numMarchandiseMax;
+        private System.Windows.Forms.NumericUpDown numMarchandiseMin;
         private System.Windows.Forms.Label lblAeroMaxMarch;
         private System.Windows.Forms.Label lblAeroMinMarch;
         private System.Windows.Forms.GroupBox groupAjoutVéhicule;
@@ -539,7 +603,7 @@
         private System.Windows.Forms.NumericUpDown numVitesse;
         private System.Windows.Forms.Label lblCapacité;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSupprimerVehicule;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem menuFichier;
         private System.Windows.Forms.ToolStripMenuItem itemCharger;

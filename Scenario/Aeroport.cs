@@ -87,6 +87,11 @@ namespace OTAI.Scenario {
         /// <returns>Retourne un entier qui détermine si cette instance précède, suit ou se situe à la même position que l'objet précisé dans l'odre de tri</returns>
         /// <remarks>Cette classe est classé en ordre croissante de nom</remarks>
         /// <exception cref="ArgumentException">L'objet reçu en paramètre doit être un aéroport</exception>
+        
+        public void SupprimerVehicule(int index) {
+            vehicules.RemoveAt(index);
+        }
+
         public int CompareTo(object obj) {
             if (obj is Aeroport aeroport)
                 return nom.CompareTo(aeroport.nom);

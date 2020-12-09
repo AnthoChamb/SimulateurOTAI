@@ -68,6 +68,14 @@ namespace OTAI.Scenario {
         /// <exception cref="ArgumentException">L'utilisateur doit fournir les paramètres nécessaires à la création du type de véhicule précisé</exception>
         public void AjouterVehicule(int aeroport, TypeVehicule typeVehicule, string nom, int vitesse, int? embarquement = null, int? debarquement = null, int? entretien = null, object capacite = null) => aeroports[aeroport].AjouterVehicule(FabriqueVehicule.Singleton.CreerVehicule(typeVehicule, nom, vitesse, embarquement, debarquement, entretien, capacite));
 
+
+        public void SupprimerAeroport(int index) {
+            aeroports.RemoveAt(index);
+        }
+
+        public void SupprimerVehicule(int indexAeroport, int indexVehicule) {
+            aeroports[indexAeroport].SupprimerVehicule(indexVehicule);
+        }
         #endregion
     }
 }
