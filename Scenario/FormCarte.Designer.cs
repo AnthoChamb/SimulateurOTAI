@@ -32,21 +32,22 @@
             this.pictureCarte.BackgroundImage = global::OTAI.Scenario.Properties.Resources.carte;
             this.pictureCarte.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureCarte.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureCarte.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureCarte.Location = new System.Drawing.Point(0, 0);
             this.pictureCarte.Name = "pictureCarte";
-            this.pictureCarte.Size = new System.Drawing.Size(1101, 624);
+            this.pictureCarte.Size = new System.Drawing.Size(1008, 473);
             this.pictureCarte.TabIndex = 0;
             this.pictureCarte.TabStop = false;
-            this.pictureCarte.Click += new System.EventHandler(this.pictureCarte_Click);
+            this.pictureCarte.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pictureCarte_MouseClick);
             // 
             // FormCarte
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1101, 620);
+            this.ClientSize = new System.Drawing.Size(1008, 473);
             this.Controls.Add(this.pictureCarte);
             this.Name = "FormCarte";
-            this.Text = "FormCarte";
+            this.Text = "Sélection d\'une position";
             ((System.ComponentModel.ISupportInitialize)(this.pictureCarte)).EndInit();
             this.ResumeLayout(false);
 
