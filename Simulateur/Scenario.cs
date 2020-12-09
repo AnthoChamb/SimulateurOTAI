@@ -54,7 +54,7 @@ namespace OTAI.Simulateur {
 
         /// <summary>Obtient la liste des aéroports dans le scénario</summary>
         /// <remarks>Cette propriété ne devrait être appelé directement que par la sérialization et désérialization Xml</remarks>
-        internal List<Aeroport> Aeroports { get => aeroports; set => aeroports = value; }
+        public List<Aeroport> Aeroports { get => aeroports; set => aeroports = value; }
 
         #endregion
 

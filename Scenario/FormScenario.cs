@@ -41,9 +41,9 @@ namespace OTAI.Scenario {
         private void ChargerTypesVéhicules() {
             cmbVehiculeType.Items.Add("Helicoptère de Secours");
             cmbVehiculeType.Items.Add("Avion Observateur");
-            cmbVehiculeType.Items.Add("Avion Citerne");
             cmbVehiculeType.Items.Add("Avion Passager");
             cmbVehiculeType.Items.Add("Avion Marchandise");
+            cmbVehiculeType.Items.Add("Avion Citerne");
         }
 
         #endregion
@@ -97,9 +97,9 @@ namespace OTAI.Scenario {
         }
 
         private void btnAjoutAeroport_Click(object sender, System.EventArgs e) {
-            if (txtAeroNom.Text == null)
+            if (txtAeroNom.Text.Length == 0)
                 MessageBox.Show("Veuillez entrer un nom d'Aéroport.");
-            else if (txtAeroPosition.Text == null)
+            else if (txtAeroPosition.Text.Length == 0)
                 MessageBox.Show("Veuillez choisir la position de l'aéroport.");
             else {
                 controleur.AjouterAeroport(txtAeroNom.Text, (Position)txtAeroPosition.Tag, (int)numPassagersMin.Value, (int)numPassagersMax.Value, (int)numMarchandiseMin.Value, (int)numMarchandiseMax.Value);
@@ -113,51 +113,19 @@ namespace OTAI.Scenario {
             }
             else if(cmbVehiculeType.SelectedIndex == -1)
                 MessageBox.Show("Veuillez choisir un type de véhicule.");
-            else if(txtVehiculeNom.Text == null)
+            else if(txtVehiculeNom.Text.Length == 0)
                 MessageBox.Show("Veuillez entrer un nom de véhicule.");
             else {
-                switch (cmbVehiculeType.SelectedIndex) {
-                    case 0:
-                        controleur.AjouterVehicule(lstAeroports.SelectedIndex, TypeVehicule.SECOURS, txtVehiculeNom.Text, (int)numVitesse.Value, null, null, null, null);
-                        break;
-                    case 1:
-                        controleur.AjouterVehicule(lstAeroports.SelectedIndex, TypeVehicule.OBSERVATEUR, txtVehiculeNom.Text, (int)numVitesse.Value, null, null, null, null);
-                        break;
-                    case 2:
-                        controleur.AjouterVehicule(lstAeroports.SelectedIndex, TypeVehicule.CITERNE, txtVehiculeNom.Text, (int)numVitesse.Value, (int)numTempsEmbarquement.Value, (int)numTempsDébarquement.Value, (int)numTempsEntretien.Value, null);
-                        break;
-                    case 3:
-                        controleur.AjouterVehicule(lstAeroports.SelectedIndex, TypeVehicule.PASSAGER, txtVehiculeNom.Text, (int)numVitesse.Value, (int)numTempsEmbarquement.Value, (int)numTempsDébarquement.Value, (int)numTempsEntretien.Value, (int)numCapacite.Value);
-                        break;
-                    case 4:
-                        controleur.AjouterVehicule(lstAeroports.SelectedIndex, TypeVehicule.MARCHANDISE, txtVehiculeNom.Text, (int)numVitesse.Value, (int)numTempsEmbarquement.Value, (int)numTempsDébarquement.Value, (int)numTempsEntretien.Value, (int)numCapacite.Value);
-                        break;
-                    default:
-                        break;
-                }
+                controleur.AjouterVehicule(lstAeroports.SelectedIndex, (TypeVehicule)cmbVehiculeType.SelectedIndex, txtVehiculeNom.Text, (int)numVitesse.Value, (int)numTempsEmbarquement.Value, (int)numTempsDébarquement.Value, (int)numTempsEntretien.Value, (int)numCapacite.Value);
                 ChargerVehicules();
             }
         }
 
         private void cmbVehiculeType_SelectedIndexChanged(object sender, System.EventArgs e) {
-            if (cmbVehiculeType.SelectedIndex == 0 || cmbVehiculeType.SelectedIndex == 1) {
-                numTempsEmbarquement.Enabled = false;
-                numTempsDébarquement.Enabled = false;
-                numTempsEntretien.Enabled = false;
-                numCapacite.Enabled = false;
-            }
-            if (cmbVehiculeType.SelectedIndex == 2) {
-                numTempsEmbarquement.Enabled = true;
-                numTempsDébarquement.Enabled = true;
-                numTempsEntretien.Enabled = true;
-                numCapacite.Enabled = false;
-            }
-            if(cmbVehiculeType.SelectedIndex == 3 || cmbVehiculeType.SelectedIndex == 4) {
-                numTempsEmbarquement.Enabled = true;
-                numTempsDébarquement.Enabled = true;
-                numTempsEntretien.Enabled = true;
-                numCapacite.Enabled = true;
-            }
+            numTempsEmbarquement.Enabled = cmbVehiculeType.SelectedIndex > 1;
+            numTempsDébarquement.Enabled = cmbVehiculeType.SelectedIndex > 1;
+            numTempsEntretien.Enabled = cmbVehiculeType.SelectedIndex > 1;
+            numCapacite.Enabled = (cmbVehiculeType.SelectedIndex & 2) == 2;
         }
 
         private void lstAeroports_SelectedIndexChanged(object sender, System.EventArgs e) {

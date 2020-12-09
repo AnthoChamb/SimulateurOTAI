@@ -27,7 +27,7 @@ namespace OTAI.Scenario {
 
         /// <summary>Obtient la liste des aéroports dans le scénario</summary>
         /// <remarks>Cette propriété ne devrait être appelé directement que par la sérialization et désérialization Xml</remarks>
-        internal List<Aeroport> Aeroports { get => aeroports; set => aeroports = value; }
+        public List<Aeroport> Aeroports { get => aeroports; set => aeroports = value; }
 
         /// <summary>Obtient les représentations en chaine des véhicules à l'aéroport de l'indice précisé</summary>
         /// <param name="i">Indice de l'aéroport</param>
@@ -66,7 +66,7 @@ namespace OTAI.Scenario {
         /// <param name="entretien">Paramètre optionnel du temps d'entretien du véhicule en secondes</param>
         /// <param name="capacite">Paramètres optionnel de la capacité de passagers ou de marchandises du véhicule</param>
         /// <exception cref="ArgumentException">L'utilisateur doit fournir les paramètres nécessaires à la création du type de véhicule précisé</exception>
-        public void AjouterVehicule(int aeroport, TypeVehicule typeVehicule, string nom, int vitesse, int? embarquement = null, int? debarquement = null, int? entretien = null, object capacite = null) => aeroports[aeroport].AjouterVehicule(FabriqueVehicule.Singleton.CreerVehicule(typeVehicule, nom, vitesse, embarquement, debarquement, entretien, capacite));
+        public void AjouterVehicule(int aeroport, TypeVehicule typeVehicule, string nom, int vitesse, int? embarquement = null, int? debarquement = null, int? entretien = null, int? capacite = null) => aeroports[aeroport].AjouterVehicule(FabriqueVehicule.Singleton.CreerVehicule(typeVehicule, nom, vitesse, embarquement, debarquement, entretien, capacite));
 
 
         public void SupprimerAeroport(int index) {

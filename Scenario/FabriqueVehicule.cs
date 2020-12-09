@@ -28,13 +28,13 @@ namespace OTAI.Scenario {
         /// <param name="capacite">Paramètres optionnel de la capacité de passagers ou de marchandises du véhicule</param>
         /// <returns>Retourne le véhicule créer à partir des paramètres précisés</returns>
         /// <exception cref="ArgumentException">L'utilisateur doit fournir les paramètres nécessaires à la création du type de véhicule précisé</exception>
-        public Vehicule CreerVehicule(TypeVehicule typeVehicule, string nom, int vitesse, int? embarquement = null, int? debarquement = null, int? entretien = null, object capacite = null) {
+        public Vehicule CreerVehicule(TypeVehicule typeVehicule, string nom, int vitesse, int? embarquement = null, int? debarquement = null, int? entretien = null, int? capacite = null) {
             return typeVehicule switch {
                 TypeVehicule.SECOURS => new HelicoptereSecours(nom, vitesse),
                 TypeVehicule.OBSERVATEUR => new AvionObservateur(nom, vitesse),
+                TypeVehicule.PASSAGER => new AvionPassager(nom, vitesse, embarquement.Value, debarquement.Value, entretien.Value, capacite.Value),
+                TypeVehicule.MARCHANDISE => new AvionMarchandise(nom, vitesse, embarquement.Value, debarquement.Value, entretien.Value, capacite.Value),
                 TypeVehicule.CITERNE => new AvionCiterne(nom, vitesse, embarquement.Value, debarquement.Value, entretien.Value),
-                TypeVehicule.PASSAGER => new AvionPassager(nom, vitesse, embarquement.Value, debarquement.Value, entretien.Value, (int)capacite),
-                TypeVehicule.MARCHANDISE => new AvionMarchandise(nom, vitesse, embarquement.Value, debarquement.Value, entretien.Value, (float)capacite),
                 _ => throw new ArgumentException("Type de véhicule inconnu"),
             };
         }

@@ -323,6 +323,7 @@
             // 
             // numCapacite
             // 
+            this.numCapacite.BackColor = System.Drawing.SystemColors.Window;
             this.numCapacite.Enabled = false;
             this.numCapacite.Location = new System.Drawing.Point(144, 208);
             this.numCapacite.Minimum = new decimal(new int[] {
@@ -342,6 +343,7 @@
             // 
             // numTempsEntretien
             // 
+            this.numTempsEntretien.BackColor = System.Drawing.SystemColors.Window;
             this.numTempsEntretien.Enabled = false;
             this.numTempsEntretien.Location = new System.Drawing.Point(144, 173);
             this.numTempsEntretien.Minimum = new decimal(new int[] {
@@ -361,6 +363,7 @@
             // 
             // numTempsDébarquement
             // 
+            this.numTempsDébarquement.BackColor = System.Drawing.SystemColors.Window;
             this.numTempsDébarquement.Enabled = false;
             this.numTempsDébarquement.Location = new System.Drawing.Point(361, 139);
             this.numTempsDébarquement.Minimum = new decimal(new int[] {
@@ -380,6 +383,7 @@
             // 
             // numTempsEmbarquement
             // 
+            this.numTempsEmbarquement.BackColor = System.Drawing.SystemColors.Window;
             this.numTempsEmbarquement.Enabled = false;
             this.numTempsEmbarquement.Location = new System.Drawing.Point(144, 139);
             this.numTempsEmbarquement.Minimum = new decimal(new int[] {
@@ -484,6 +488,7 @@
             // 
             // cmbVehiculeType
             // 
+            this.cmbVehiculeType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbVehiculeType.FormattingEnabled = true;
             this.cmbVehiculeType.Location = new System.Drawing.Point(90, 31);
             this.cmbVehiculeType.Name = "cmbVehiculeType";

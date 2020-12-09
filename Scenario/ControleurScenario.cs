@@ -30,7 +30,7 @@ namespace OTAI.Scenario {
             scenario.AjouterAeroport(nom, position, minPassagers, maxPassagers, minMarchandise, maxMarchandise);
         }
 
-        public void AjouterVehicule(int Aeroport, TypeVehicule typeVehicule, string nom, int vitesse, int? embarquement, int? debarquement, int? entretien, object? capacite) {
+        public void AjouterVehicule(int Aeroport, TypeVehicule typeVehicule, string nom, int vitesse, int? embarquement, int? debarquement, int? entretien, int? capacite) {
             scenario.AjouterVehicule(Aeroport, typeVehicule, nom, vitesse, embarquement, debarquement, entretien, capacite);
         }
 

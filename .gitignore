@@ -360,3 +360,6 @@ index.md
 log.txt
 toc.yml
 docfx.json
+
+# Xmls
+*.xml

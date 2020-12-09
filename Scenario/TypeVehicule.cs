@@ -5,11 +5,11 @@
         SECOURS,
         /// <summary>Avion observateur</summary>
         OBSERVATEUR,
-        /// <summary>Avion citerne</summary>
-        CITERNE,
         /// <summary>Avion de passagers</summary>
         PASSAGER,
         /// <summary>Avion de marchandises</summary>
-        MARCHANDISE
+        MARCHANDISE,
+        /// <summary>Avion citerne</summary>
+        CITERNE
     }
 }

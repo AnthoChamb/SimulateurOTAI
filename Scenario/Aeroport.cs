@@ -72,7 +72,7 @@ namespace OTAI.Scenario {
 
         /// <summary>Obtient la liste des véhicules de l'aéroport</summary>
         /// <remarks>Cette propriété ne devrait être appelé directement que par la sérialization et désérialization Xml</remarks>
-        internal List<Vehicule> Vehicules { get => vehicules; set => vehicules = value; }
+        public List<Vehicule> Vehicules { get => vehicules; set => vehicules = value; }
 
         #endregion
 
