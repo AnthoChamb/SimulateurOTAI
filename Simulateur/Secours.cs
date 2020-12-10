@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OTAI.Simulateur {
+﻿namespace OTAI.Simulateur {
     /// <summary>Classe du client secours </summary>
     public class Secours : Client {
 

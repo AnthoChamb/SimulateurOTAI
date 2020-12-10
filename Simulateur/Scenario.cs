@@ -96,9 +96,11 @@ namespace OTAI.Simulateur {
         /// <summary>Simule l'action du scénario</summary>
         /// <param name="temps">Temps de simulation en secondes</param>
         public void Simuler(int temps) {
+            Random rand = new Random();
             ecoule += temps;
 
-            foreach (Clientele clientele in restant.Keys) {
+            for (int i = 0; i < restant.Count; i++) {
+                Clientele clientele = (Clientele)i;
                 restant[clientele] -= temps;
 
                 if (restant[clientele] <= 0) {
@@ -110,7 +112,6 @@ namespace OTAI.Simulateur {
                             EnvoyerMarchandises();
                             break;
                         default:
-                            Random rand = new Random();
                             Position alea = new Position(rand.Next(-90, 90), rand.Next(-180, 180));
 
                             aeroports.OrderBy(aeroport => aeroport.Position.Distance(alea)).First().AjouterClient(FabriqueClient.Singleton.CreerClient(clientele, alea));

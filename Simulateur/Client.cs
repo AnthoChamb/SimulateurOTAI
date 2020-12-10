@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OTAI.Simulateur {
+﻿namespace OTAI.Simulateur {
     /// <summary>Classe cliente du simulateur</summary>
-   public abstract class Client {
+    public abstract class Client {
 
         #region Données membres
         private Position position;
@@ -28,5 +22,20 @@ namespace OTAI.Simulateur {
 
         public abstract override bool Equals(object obj);
 
+        #region Opérateurs 
+
+        /// <summary>Évalue si le client a est identique au client b</summary>
+        /// <param name="a">Client a</param>
+        /// <param name="b">Client</param>
+        /// <returns>Retourne <c>true</c> si les clients sont identiques sinon <c>false</c></returns>
+        public static bool operator ==(Client a, Client b) => a.Equals(b);
+
+        /// <summary>Évalue si le client a n'est pas identique au client b</summary>
+        /// <param name="a">Client a</param>
+        /// <param name="b">Client</param>
+        /// <returns>Retourne <c>true</c> si les clients ne sont pas identiques sinon <c>false</c></returns>
+        public static bool operator !=(Client a, Client b) => !a.Equals(b);
+
+        #endregion
     }
 }

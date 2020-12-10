@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace OTAI.Simulateur {
     /// <summary>Classe controleur du simulateur</summary>
-    public class ControleurSimulateur {
+    public class ControleurSimulateur : IDisposable {
         #region Données membres
 
         private readonly FormSimulateur interfaceSimulateur;
@@ -23,19 +23,23 @@ namespace OTAI.Simulateur {
             interfaceSimulateur = new FormSimulateur(this);
 
             simulation = new BackgroundWorker {
-                WorkerSupportsCancellation = true
+                WorkerSupportsCancellation = true,
+                WorkerReportsProgress = true
             };
 
             simulation.DoWork += simulation_DoWork;
             simulation.ProgressChanged += simulation_ProgressChanged;
+            simulation.RunWorkerCompleted += simulation_RunWorkerCompleted;
 
             scenario = null;
-            vitesse = 0;
 
             Application.Run(interfaceSimulateur);
         }
 
         #region Propriétés publiques
+
+        /// <summary>Obtient le nombre de temps écoulé en secondes depuis le début de la simulation</summary>
+        public int Ecoule { get => scenario.Ecoule; }
 
         /// <summary>Obtient et définit la vitesse de la simulation</summary>
         public int Vitesse { get => vitesse; set => vitesse = value; }
@@ -46,20 +50,33 @@ namespace OTAI.Simulateur {
         /// <summary>Obtient la position des aéroports dans la simulation</summary>
         public Position[] PositionsAeroports { get => scenario.PositionsAeroports; }
 
+        /// <summary>Obtient les vols actuels dans la simulation</summary>
+        public (Color, Position, Position, Position)[] Vols {
+            get {
+                (TypeVehicule typeVehicule, Position origine, Position position, Position destination)[] volsType = scenario.Vols;
+                (Color, Position, Position, Position)[] volsCouleur = new (Color, Position, Position, Position)[volsType.Length];
+
+                for (int i = 0; i < volsType.Length; i++)
+                    volsCouleur[i] = (TypeVehiculeCouleur(volsType[i].typeVehicule), volsType[i].origine, volsType[i].position, volsType[i].destination);
+
+                return volsCouleur;
+            }
+        }
+
         #endregion
 
         #region Méthodes publiques
 
         public void OuvrirScenario(string chemin) {
-            if (simulation.IsBusy)
-                simulation.CancelAsync();
-
             XmlSerializer serializateur = new XmlSerializer(typeof(Scenario));
             using (StreamReader lecteur = new StreamReader(chemin)) {
                 scenario = serializateur.Deserialize(lecteur) as Scenario;
             }
 
-            simulation.RunWorkerAsync();
+            if (simulation.IsBusy)
+                simulation.CancelAsync();
+            else
+                simulation.RunWorkerAsync();
         }
 
         /// <summary>Obtient les représentations en chaine des véhicules à l'aéroport de l'indice précisé</summary>
@@ -72,15 +89,16 @@ namespace OTAI.Simulateur {
         /// <returns>Retourne les représentations en chaine des clients en attente à l'aéroport de l'indice précisé</returns>
         public string[] Clients(int i) => scenario.Clients(i);
 
+        /// <summary>Libère les ressources du controleur</summary>
+        public void Dispose() => simulation.Dispose();
+
         #endregion
 
         #region Événement SimulationChange
 
         /// <summary>Délégué du gestionnaire d'événement d'un changement de la simulation</summary>
         /// <param name="sender">Objet à l'origine de l'événement</param>
-        /// <param name="vols">Vols actuels de la simulation</param>
-        /// <param name="ecoule">Temps écoulé en secondes depuis le début de la simulation</param>
-        public delegate void SimulationChangeEventHandler(object sender, (Color, Position, Position, Position)[] vols, int ecoule);
+        public delegate void SimulationChangeEventHandler(object sender);
 
         /// <summary>Événement levé lors d'un changement dans la simulation</summary>
         public event SimulationChangeEventHandler SimulationChange;
@@ -131,14 +149,14 @@ namespace OTAI.Simulateur {
         /// <summary>Gestionnaire d'événement d'un changement de la simulation</summary>
         /// <param name="sender">Objet à l'origine de l'événement</param>
         /// <param name="e">Paramètres de l'événement</param>
-        private void simulation_ProgressChanged(object sender, ProgressChangedEventArgs e) {
-            (TypeVehicule typeVehicule, Position origine, Position position, Position destination)[] volsType = scenario.Vols;
-            (Color, Position, Position, Position)[] volsCouleur = new (Color, Position, Position, Position)[volsType.Length];
+        private void simulation_ProgressChanged(object sender, ProgressChangedEventArgs e) => SimulationChange?.Invoke(this);
 
-            for (int i = 0; i < volsType.Length; i++)
-                volsCouleur[i] = (TypeVehiculeCouleur(volsType[i].typeVehicule), volsType[i].origine, volsType[i].position, volsType[i].destination);
-
-            SimulationChange?.Invoke(sender, volsCouleur, scenario.Ecoule);
+        /// <summary>Gestionnaire d'événement de la fin de la simulation</summary>
+        /// <param name="sender">Objet à l'origine de l'événement</param>
+        /// <param name="e">Paramètres de l'événement</param>
+        private void simulation_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
+            if (e.Cancelled && scenario != null)
+                simulation.RunWorkerAsync();
         }
 
         #endregion

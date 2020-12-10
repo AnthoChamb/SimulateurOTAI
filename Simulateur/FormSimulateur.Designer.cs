@@ -12,6 +12,7 @@
         protected override void Dispose(bool disposing) {
             if (disposing && (components != null)) {
                 components.Dispose();
+                controleur.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -211,6 +212,7 @@
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.Controls.Add(this.pictureCarte);
+            this.DoubleBuffered = true;
             this.MainMenuStrip = this.menuStrip;
             this.MinimumSize = new System.Drawing.Size(808, 756);
             this.Name = "FormSimulateur";

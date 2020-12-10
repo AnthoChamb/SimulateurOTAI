@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OTAI.Simulateur {
+﻿namespace OTAI.Simulateur {
     /// <summary>Classe d'un client feu</summary>
-    public class Feu: Client {
+    public class Feu : Client {
         private byte envergure;
         #region Constructeur
         public Feu(Position position, byte envergure) : base(position) {
@@ -21,7 +15,7 @@ namespace OTAI.Simulateur {
         #endregion
 
         #region Méthodes publiques
-        public override string ToString() =>  "Incendie d'envergure " + envergure + " (" + base.Position + ")";
+        public override string ToString() => "Incendie d'envergure " + envergure + " (" + base.Position + ")";
 
         public override bool Equals(object obj) => obj is Feu feu && feu.Position == Position && feu.envergure == envergure;
 

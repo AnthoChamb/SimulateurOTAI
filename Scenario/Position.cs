@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Drawing;
-using System.Globalization;
 
 namespace OTAI.Scenario {
     /// <summary>Structure d'une position cartographique</summary>
     public struct Position {
         #region Données membres;
 
-        private float lat;
-        private float lon;
+        private double lat;
+        private double lon;
 
         #endregion
 
@@ -17,7 +16,7 @@ namespace OTAI.Scenario {
         /// <summary>Crée une position cartographique selon des coordonnées en x et y</summary>
         /// <param name="lat">Lattitude de la position</param>
         /// <param name="lon">Longitude de la position</param>
-        public Position(float lat, float lon) {
+        public Position(double lat, double lon) {
             this.lat = lat;
             this.lon = lon;
         }
@@ -26,17 +25,17 @@ namespace OTAI.Scenario {
         /// <param name="point">Coordonnées en x et y b</param>
         /// <param name="carte">Objet ayant des dimensions précises</param>
         public Position(Point point, Size carte) {
-            lon = (float)(point.X * 360.0 / carte.Width - 180);
-            lat = (float)(point.Y * 180.0 / carte.Height - 90);
+            lon = point.X * 360.0 / carte.Width - 180;
+            lat = point.Y * 180.0 / carte.Height - 90;
         }
 
         #endregion
 
         #region Propriétés publiques
 
-        public float Lat { get => lat; set => lat = value; }
+        public double Lat { get => lat; set => lat = value; }
 
-        public float Lon { get => lon; set => lon = value; }
+        public double Lon { get => lon; set => lon = value; }
 
         #endregion
 
@@ -48,10 +47,14 @@ namespace OTAI.Scenario {
         public Point Transposer(Size taille) => new Point((int)Math.Round((lon + 180) * taille.Width / 360), (int)Math.Round((lat + 90) * taille.Height / 180));
 
         /// <summary>Calcule la distance entre cette position et la position reçu en paramètre</summary>
-        /// <param name="a">Position a</param>
-        /// <param name="b">Position b</param>
+        /// <param name="position">Position à calculer</param>
         /// <returns>Retourne la distance entre cette position et la position reçu en paramètre</returns>
         public double Distance(Position position) => Distance(this, position);
+
+        /// <summary>Calcule l'angle entre cette position et la position reçu en paramètre</summary>
+        /// <param name="position">Position à calculer</param>
+        /// <returns>Retourne l'angle entre cette position et la position reçu en paramètre</returns>
+        public double Angle(Position position) => Angle(this, position);
 
         /// <summary>Obtient une représentation en chaine de la position cartographique</summary>
         /// <returns>Retourne une représentation en chaine de la position cartographique</returns>
@@ -76,6 +79,17 @@ namespace OTAI.Scenario {
             Position p2 = a > b ? a : b;
             Position p1 = a > b ? b : a;
             return Math.Sqrt(Math.Pow(p2.lon - p1.lon, 2) + Math.Pow(p2.lat - p1.lat, 2));
+        }
+
+        /// <summary>Calcule l'angle entre deux positions</summary>
+        /// <param name="a">Position a</param>
+        /// <param name="b">Position b</param>
+        /// <returns>Retourne l'angle entre les deux positions</returns>
+        public static double Angle(Position a, Position b) {
+            double angle = Math.Atan((a.lat - b.lat) / (a.lon - b.lon));
+            if (a > b)
+                return angle - Math.PI;
+            return angle;
         }
 
         #endregion

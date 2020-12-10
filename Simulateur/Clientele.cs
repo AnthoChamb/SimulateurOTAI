@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OTAI.Simulateur {
+﻿namespace OTAI.Simulateur {
     /// <summary>Enumération des types de clients</summary>
     public enum Clientele {
         /// <summary>Situation de secours</summary>

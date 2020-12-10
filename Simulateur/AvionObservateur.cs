@@ -25,9 +25,9 @@ namespace OTAI.Simulateur {
             // Enfile les états nécessaire à une observation
             etats.Enqueue(new EtatObservation(origine, destination, Vitesse));
 
-            double angle = Math.Atan(origine.Lon - destination.Lon / origine.Lat - destination.Lat);
+            double angle = origine.Angle(destination);
 
-            etats.Enqueue(new EtatVol(new Position(destination.Lat + (float)Math.Sin(angle), destination.Lon + (float)Math.Cos(angle)), origine, Vitesse));
+            etats.Enqueue(new EtatVol(new Position(destination.Lat - Math.Sin(angle) * EtatObservation.RAYON, destination.Lon - Math.Cos(angle) * EtatObservation.RAYON), origine, Vitesse));
             etats.Enqueue(new EtatAttente());
 
             Envoyer();

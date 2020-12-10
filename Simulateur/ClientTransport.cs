@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OTAI.Simulateur {
+﻿namespace OTAI.Simulateur {
     /// <summary>Classe d'un client transportant une charge</summary>
-   public abstract class ClientTransport : Client {
+    public abstract class ClientTransport : Client {
         #region Données membres
         protected Aeroport aeroportDestination;
         protected int quantite;

@@ -26,7 +26,7 @@ namespace OTAI.Simulateur {
             this.origine = position = origine;
             this.destination = destination;
 
-            angle = Math.Atan(origine.Lon - destination.Lon / origine.Lat - destination.Lat);
+            angle = origine.Angle(destination);
         }
 
         #endregion
@@ -50,8 +50,9 @@ namespace OTAI.Simulateur {
             base.Simuler(temps);
 
             while (position > destination == origine > destination && temps > 0) {
-                position.Lon += (float)Math.Cos(angle) * vitesse;
-                position.Lat += (float)Math.Sin(angle) * vitesse;
+                position.Lon += Math.Cos(angle) * vitesse / 60;
+                position.Lat += Math.Sin(angle) * vitesse / 60;
+                temps--;
             }
 
             if (temps > 0)

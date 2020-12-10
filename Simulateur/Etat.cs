@@ -17,7 +17,7 @@ namespace OTAI.Simulateur {
         /// <summary>Obtient une représentation en chaine du temps écoulé depuis le début de l'état concret</summary>
         /// <returns>Retourne une représentation en chaine du temps écoulé depuis le début de l'état concret</returns>
         /// <remarks>Le temps est retourné sous le format <c>hh:mm:ss</c></remarks>
-        public override string ToString() => String.Format("{0:00}:{1:00}:{2:00}", ecoule / 60 / 60, ecoule / 60, ecoule % 60);
+        public override string ToString() => String.Format("{0:00}:{1:00}:{2:00}", ecoule / 60 / 60, ecoule / 60 % 60, ecoule % 60);
 
         #endregion
 

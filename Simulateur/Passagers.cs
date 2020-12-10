@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OTAI.Simulateur {
-    public class Passagers: ClientTransport {
+﻿namespace OTAI.Simulateur {
+    public class Passagers : ClientTransport {
         #region Constructeur
         public Passagers(Aeroport aeroportDestination, int quantite) : base(aeroportDestination, quantite) {
 

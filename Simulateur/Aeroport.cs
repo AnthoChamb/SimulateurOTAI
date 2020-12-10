@@ -184,24 +184,26 @@ namespace OTAI.Simulateur {
 
         /// <summary>Distribue les clients en attente de l'aéroport dans les véhicules en attente</summary>
         private void DistribuerClients() {
+            Queue<Client> distribue = new Queue<Client>();
+
             foreach (Client client in clients) {
                 switch (client) {
                     case Secours secours:
                         if (vehicules.Where(vehicule => vehicule is HelicoptereSecours && vehicule.EnAttente).FirstOrDefault() is HelicoptereSecours helicoptere) {
                             helicoptere.EnvoyerSecours(position, secours.Position);
-                            clients.Remove(secours);
+                            distribue.Enqueue(secours);
                         }
                         break;
 
                     case Feu feu:
                         if (vehicules.Where(vehicule => vehicule is AvionCiterne && vehicule.EnAttente).FirstOrDefault() is AvionCiterne citerne) {
                             citerne.EnvoyerEteindreFeu(position, feu.Position, feu.Envergure);
-                            clients.Remove(feu);
+                            distribue.Enqueue(feu);
                         }
                         break;
 
                     case Passagers passagers:
-                        List<AvionPassager> passagerDispo = (vehicules.Where(vehicule => vehicule is AvionPassager && vehicule.EnAttente) as IEnumerable<AvionPassager>).ToList();
+                        List<AvionPassager> passagerDispo = vehicules.Where(vehicule => vehicule is AvionPassager && vehicule.EnAttente).Cast<AvionPassager>().ToList();
                         passagerDispo.Sort((a, b) => b.Capacite.CompareTo(a.Capacite));
 
                         while (passagers.Quantite > 0 && passagerDispo.Count > 0) {
@@ -213,11 +215,11 @@ namespace OTAI.Simulateur {
                         }
 
                         if (passagers.Quantite <= 0)
-                            clients.Remove(passagers);
+                            distribue.Enqueue(passagers);
                         break;
 
                     case Marchandises marchandises:
-                        List<AvionMarchandise> marchandiseDispo = (vehicules.Where(vehicule => vehicule is AvionMarchandise && vehicule.EnAttente) as IEnumerable<AvionMarchandise>).ToList();
+                        List<AvionMarchandise> marchandiseDispo = vehicules.Where(vehicule => vehicule is AvionMarchandise && vehicule.EnAttente).Cast<AvionMarchandise>().ToList();
                         marchandiseDispo.Sort((a, b) => b.Capacite.CompareTo(a.Capacite));
 
                         while (marchandises.Quantite > 0 && marchandiseDispo.Count > 0) {
@@ -229,17 +231,20 @@ namespace OTAI.Simulateur {
                         }
 
                         if (marchandises.Quantite <= 0)
-                            clients.Remove(marchandises);
+                            distribue.Enqueue(marchandises);
                         break;
 
                     case Observateurs observateurs:
                         if (vehicules.Where(vehicule => vehicule is AvionObservateur && vehicule.EnAttente).FirstOrDefault() is AvionObservateur observateur) {
                             observateur.EnvoyerObservation(position, observateurs.Position);
-                            clients.Remove(observateurs);
+                            distribue.Enqueue(observateurs);
                         }
                         break;
                 }
             }
+
+            foreach (Client client in distribue)
+                clients.Remove(client);
         }
 
         /// <summary>Transfère l'avion reçu en paramètre vers le client de transport</summary>
