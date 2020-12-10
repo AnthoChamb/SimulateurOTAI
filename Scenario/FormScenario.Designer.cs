@@ -380,13 +380,17 @@
             this.numCapacite.BackColor = System.Drawing.SystemColors.Window;
             this.numCapacite.Enabled = false;
             this.numCapacite.Location = new System.Drawing.Point(144, 208);
+            this.numCapacite.Maximum = new decimal(new int[] {
+            1800,
+            0,
+            0,
+            0});
             this.numCapacite.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.numCapacite.Name = "numCapacite";
-            this.numCapacite.ReadOnly = true;
             this.numCapacite.Size = new System.Drawing.Size(80, 20);
             this.numCapacite.TabIndex = 12;
             this.numCapacite.Value = new decimal(new int[] {
@@ -399,18 +403,27 @@
             // 
             this.numTempsEntretien.BackColor = System.Drawing.SystemColors.Window;
             this.numTempsEntretien.Enabled = false;
+            this.numTempsEntretien.Increment = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
             this.numTempsEntretien.Location = new System.Drawing.Point(144, 173);
+            this.numTempsEntretien.Maximum = new decimal(new int[] {
+            21600,
+            0,
+            0,
+            0});
             this.numTempsEntretien.Minimum = new decimal(new int[] {
-            1,
+            300,
             0,
             0,
             0});
             this.numTempsEntretien.Name = "numTempsEntretien";
-            this.numTempsEntretien.ReadOnly = true;
             this.numTempsEntretien.Size = new System.Drawing.Size(80, 20);
             this.numTempsEntretien.TabIndex = 11;
             this.numTempsEntretien.Value = new decimal(new int[] {
-            1,
+            300,
             0,
             0,
             0});
@@ -419,18 +432,27 @@
             // 
             this.numTempsDébarquement.BackColor = System.Drawing.SystemColors.Window;
             this.numTempsDébarquement.Enabled = false;
+            this.numTempsDébarquement.Increment = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
             this.numTempsDébarquement.Location = new System.Drawing.Point(361, 139);
+            this.numTempsDébarquement.Maximum = new decimal(new int[] {
+            21600,
+            0,
+            0,
+            0});
             this.numTempsDébarquement.Minimum = new decimal(new int[] {
-            1,
+            300,
             0,
             0,
             0});
             this.numTempsDébarquement.Name = "numTempsDébarquement";
-            this.numTempsDébarquement.ReadOnly = true;
             this.numTempsDébarquement.Size = new System.Drawing.Size(80, 20);
             this.numTempsDébarquement.TabIndex = 10;
             this.numTempsDébarquement.Value = new decimal(new int[] {
-            1,
+            300,
             0,
             0,
             0});
@@ -439,18 +461,27 @@
             // 
             this.numTempsEmbarquement.BackColor = System.Drawing.SystemColors.Window;
             this.numTempsEmbarquement.Enabled = false;
+            this.numTempsEmbarquement.Increment = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
             this.numTempsEmbarquement.Location = new System.Drawing.Point(144, 139);
+            this.numTempsEmbarquement.Maximum = new decimal(new int[] {
+            21600,
+            0,
+            0,
+            0});
             this.numTempsEmbarquement.Minimum = new decimal(new int[] {
-            1,
+            300,
             0,
             0,
             0});
             this.numTempsEmbarquement.Name = "numTempsEmbarquement";
-            this.numTempsEmbarquement.ReadOnly = true;
             this.numTempsEmbarquement.Size = new System.Drawing.Size(80, 20);
             this.numTempsEmbarquement.TabIndex = 9;
             this.numTempsEmbarquement.Value = new decimal(new int[] {
-            1,
+            300,
             0,
             0,
             0});

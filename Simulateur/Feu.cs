@@ -9,8 +9,12 @@
         #endregion
 
         #region Propriétés publiques
+
         /// <summary>Obtient et définit l'envergure d'un feu </summary>
         public byte Envergure { get => envergure; set => envergure = value; }
+
+        /// <summary>Obtient le type de clientèle du client</summary>
+        public override Clientele Clientele { get => Clientele.INCENDIE; }
 
         #endregion
 

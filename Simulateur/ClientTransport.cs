@@ -26,7 +26,5 @@
         public int Quantite { get => quantite; set => quantite = value; }
 
         #endregion
-
-
     }
 }

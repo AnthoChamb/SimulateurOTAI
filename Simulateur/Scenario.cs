@@ -20,11 +20,11 @@ namespace OTAI.Simulateur {
             aeroports = new List<Aeroport>();
             ecoule = 0;
             restant = new Dictionary<Clientele, int>(5) {
-                { Clientele.SECOURS, ClienteleAttente(Clientele.SECOURS) },
-                { Clientele.INCENDIE, ClienteleAttente(Clientele.INCENDIE) },
-                { Clientele.PASSAGERS, ClienteleAttente(Clientele.PASSAGERS) },
-                { Clientele.MARCHANDISES, ClienteleAttente(Clientele.MARCHANDISES) },
-                { Clientele.OBSERVATION, ClienteleAttente(Clientele.OBSERVATION) }
+                { Clientele.SECOURS, 900 },
+                { Clientele.INCENDIE, 300 },
+                { Clientele.PASSAGERS, 0 },
+                { Clientele.MARCHANDISES, 600 },
+                { Clientele.OBSERVATION, 1800 }
             };
         }
 
@@ -105,16 +105,27 @@ namespace OTAI.Simulateur {
 
                 if (restant[clientele] <= 0) {
                     switch (clientele) {
+                        case Clientele.SECOURS:
+                            Position secours = new Position(rand.Next(-90, 90), rand.Next(-180, 180));
+                            aeroports.Where(a => a.PossedeHelicoptereSecours).OrderBy(aeroport => aeroport.Position.Distance(secours)).FirstOrDefault()?.AjouterClient(FabriqueClient.Singleton.CreerClient(clientele, secours));
+                            break;
+
+                        case Clientele.INCENDIE:
+                            Position feu = new Position(rand.Next(-90, 90), rand.Next(-180, 180));
+                            aeroports.Where(a => a.PossedeAvionCiterne).OrderBy(aeroport => aeroport.Position.Distance(feu)).FirstOrDefault()?.AjouterClient(FabriqueClient.Singleton.CreerClient(clientele, feu));
+                            break;
+
                         case Clientele.PASSAGERS:
                             EnvoyerPassagers();
                             break;
+
                         case Clientele.MARCHANDISES:
                             EnvoyerMarchandises();
                             break;
-                        default:
-                            Position alea = new Position(rand.Next(-90, 90), rand.Next(-180, 180));
 
-                            aeroports.OrderBy(aeroport => aeroport.Position.Distance(alea)).First().AjouterClient(FabriqueClient.Singleton.CreerClient(clientele, alea));
+                        case Clientele.OBSERVATION:
+                            Position observation = new Position(rand.Next(-90, 90), rand.Next(-180, 180));
+                            aeroports.Where(a => a.PossedeAvionObservateur).OrderBy(aeroport => aeroport.Position.Distance(observation)).FirstOrDefault()?.AjouterClient(FabriqueClient.Singleton.CreerClient(clientele, observation));
                             break;
                     }
 

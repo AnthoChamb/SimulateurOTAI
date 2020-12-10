@@ -33,9 +33,11 @@ namespace OTAI.Scenario {
         private void ChargerVehicules() {
             lstVehicules.Items.Clear();
 
-            string[] vehicules = controleur[lstAeroports.SelectedIndex];
-            foreach (string vehicule in vehicules)
-                lstVehicules.Items.Add(vehicule);
+            if (lstAeroports.SelectedIndex > -1) {
+                string[] vehicules = controleur[lstAeroports.SelectedIndex];
+                foreach (string vehicule in vehicules)
+                    lstVehicules.Items.Add(vehicule);
+            }
         }
 
         private void ChargerTypesVéhicules() {
@@ -57,9 +59,9 @@ namespace OTAI.Scenario {
             numMarchandiseMin.Value = 1;
             numMarchandiseMax.Value = 1;
             numVitesse.Value = 1;
-            numTempsEmbarquement.Value = 1;
-            numTempsDébarquement.Value = 1;
-            numTempsEntretien.Value = 1;
+            numTempsEmbarquement.Value = numTempsEmbarquement.Minimum;
+            numTempsDébarquement.Value = numTempsDébarquement.Minimum;
+            numTempsEntretien.Value = numTempsEntretien.Minimum;
             numCapacite.Value = 1;
 
             cmbVehiculeType.SelectedIndex = -1;
@@ -108,11 +110,11 @@ namespace OTAI.Scenario {
         }
 
         private void itemQuitter_Click(object sender, System.EventArgs e) {
-            DialogResult dialogResult = MessageBox.Show("Voulez vous enregistrer le scénario?", "Quitter", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Voulez vous enregistrer le scénario avant de quitter?", "Quitter", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes) {
                 Enregistrer();
-            } else if (dialogResult == DialogResult.No)
-                this.Close();
+            }
+            Close();
         }
 
         private void btnAjoutAeroport_Click(object sender, System.EventArgs e) {
@@ -146,7 +148,7 @@ namespace OTAI.Scenario {
             numTempsEmbarquement.Enabled = cmbVehiculeType.SelectedIndex > 1;
             numTempsDébarquement.Enabled = cmbVehiculeType.SelectedIndex > 1;
             numTempsEntretien.Enabled = cmbVehiculeType.SelectedIndex > 1;
-            numCapacite.Enabled = (cmbVehiculeType.SelectedIndex & 2) == 2;
+            numCapacite.Enabled = (cmbVehiculeType.SelectedIndex & 2) == 2 && cmbVehiculeType.SelectedIndex > -1;
 
             
         }

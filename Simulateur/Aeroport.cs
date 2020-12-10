@@ -135,6 +135,8 @@ namespace OTAI.Simulateur {
                 attente.Quantite += nouveau.Quantite;
             else
                 clients.Add(client);
+
+            clients.Sort();
         }
 
         /// <summary>Obtient un entier qui détermine si cette instance précède, suit ou se situe à la même position que l'objet précisé dans l'odre de tri</summary>
