@@ -4,7 +4,14 @@ using System.Collections.Generic;
 namespace OTAI.Scenario {
     /// <summary>Classe d'un scénario du simulateur</summary>
     public class Scenario {
+
+        #region Données membres
+        /// <summary>
+        /// Liste des aéroports du scénario
+        /// </summary>
         private List<Aeroport> aeroports;
+
+        #endregion
 
         #region Constructeurs
 
@@ -68,14 +75,19 @@ namespace OTAI.Scenario {
         /// <exception cref="ArgumentException">L'utilisateur doit fournir les paramètres nécessaires à la création du type de véhicule précisé</exception>
         public void AjouterVehicule(int aeroport, TypeVehicule typeVehicule, string nom, int vitesse, int? embarquement = null, int? debarquement = null, int? entretien = null, int? capacite = null) => aeroports[aeroport].AjouterVehicule(FabriqueVehicule.Singleton.CreerVehicule(typeVehicule, nom, vitesse, embarquement, debarquement, entretien, capacite));
 
-
+        /// <summary>Supprime un aéroport à l'indice précisé</summary>
+        /// <param name="index">Indice de l'aéroport</param>
         public void SupprimerAeroport(int index) {
             aeroports.RemoveAt(index);
         }
 
+        /// <summary>Supprime un véhicule à l'indice précisé de l'aéroport à l'indice précisé</summary>
+        /// <param name="indexAeroport">Indice de l'aéroport</param>
+        /// <param name="indexVehicule">Indice du véhicule</param>
         public void SupprimerVehicule(int indexAeroport, int indexVehicule) {
             aeroports[indexAeroport].SupprimerVehicule(indexVehicule);
         }
+
         #endregion
     }
 }
