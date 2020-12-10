@@ -164,12 +164,11 @@ namespace OTAI.Scenario {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAjoutVehicule_Click(object sender, System.EventArgs e) {
-            if(lstAeroports.SelectedIndex == -1) {
+            if (lstAeroports.SelectedIndex == -1) {
                 MessageBox.Show("Veuillez choisir dans quel aéoroport vous désirez ajouter le véhicule.");
-            }
-            else if(cmbVehiculeType.SelectedIndex == -1)
+            } else if (cmbVehiculeType.SelectedIndex == -1)
                 MessageBox.Show("Veuillez choisir un type de véhicule.");
-            else if(txtVehiculeNom.Text.Length == 0)
+            else if (txtVehiculeNom.Text.Length == 0)
                 MessageBox.Show("Veuillez entrer un nom de véhicule.");
             else {
                 controleur.AjouterVehicule(lstAeroports.SelectedIndex, (TypeVehicule)cmbVehiculeType.SelectedIndex, txtVehiculeNom.Text, (int)numVitesse.Value, (int)numTempsEmbarquement.Value, (int)numTempsDébarquement.Value, (int)numTempsEntretien.Value, (int)numCapacite.Value);
