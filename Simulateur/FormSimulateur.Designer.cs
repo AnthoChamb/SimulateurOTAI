@@ -143,7 +143,7 @@
             this.groupAeroports.Controls.Add(this.lstAeroports);
             this.groupAeroports.Location = new System.Drawing.Point(12, 96);
             this.groupAeroports.Name = "groupAeroports";
-            this.groupAeroports.Size = new System.Drawing.Size(200, 200);
+            this.groupAeroports.Size = new System.Drawing.Size(177, 200);
             this.groupAeroports.TabIndex = 5;
             this.groupAeroports.TabStop = false;
             this.groupAeroports.Text = "Aéroports";
@@ -154,7 +154,7 @@
             this.lstAeroports.FormattingEnabled = true;
             this.lstAeroports.Location = new System.Drawing.Point(3, 16);
             this.lstAeroports.Name = "lstAeroports";
-            this.lstAeroports.Size = new System.Drawing.Size(194, 181);
+            this.lstAeroports.Size = new System.Drawing.Size(171, 181);
             this.lstAeroports.TabIndex = 0;
             this.lstAeroports.SelectedIndexChanged += new System.EventHandler(this.lstAeroports_SelectedIndexChanged);
             // 
@@ -163,7 +163,7 @@
             this.groupClients.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.groupClients.Controls.Add(this.lstClients);
-            this.groupClients.Location = new System.Drawing.Point(218, 96);
+            this.groupClients.Location = new System.Drawing.Point(195, 96);
             this.groupClients.Name = "groupClients";
             this.groupClients.Size = new System.Drawing.Size(256, 200);
             this.groupClients.TabIndex = 6;
@@ -181,12 +181,13 @@
             // 
             // groupVehicules
             // 
-            this.groupVehicules.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupVehicules.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupVehicules.Controls.Add(this.lstVehicules);
-            this.groupVehicules.Location = new System.Drawing.Point(480, 96);
+            this.groupVehicules.Location = new System.Drawing.Point(457, 96);
             this.groupVehicules.Name = "groupVehicules";
-            this.groupVehicules.Size = new System.Drawing.Size(297, 200);
+            this.groupVehicules.Size = new System.Drawing.Size(320, 200);
             this.groupVehicules.TabIndex = 7;
             this.groupVehicules.TabStop = false;
             this.groupVehicules.Text = "Véhicules";
@@ -197,7 +198,7 @@
             this.lstVehicules.FormattingEnabled = true;
             this.lstVehicules.Location = new System.Drawing.Point(3, 16);
             this.lstVehicules.Name = "lstVehicules";
-            this.lstVehicules.Size = new System.Drawing.Size(291, 181);
+            this.lstVehicules.Size = new System.Drawing.Size(314, 181);
             this.lstVehicules.TabIndex = 1;
             // 
             // FormSimulateur

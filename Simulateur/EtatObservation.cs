@@ -16,7 +16,7 @@ namespace OTAI.Simulateur {
         public override void Simuler(int temps) {
             ecoule += temps;
 
-            while (position.Distance(Destination) > RAYON && position > Destination == Origine > Destination && temps > 0) {
+            while (position.Distance(Destination) > RAYON && (position > Destination == Origine > Destination && position.Lat > Destination.Lat == Origine.Lat > Destination.Lat) && temps > 0) {
                 position.Lon += Math.Cos(angle) * vitesse / 60;
                 position.Lat += Math.Sin(angle) * vitesse / 60;
                 temps--;
@@ -24,7 +24,7 @@ namespace OTAI.Simulateur {
 
             if (Math.Round(position.Distance(Destination)) <= RAYON)
                 while (observation < angle + 2 * Math.PI && temps > 0) {
-                    observation += Math.PI / 360 * vitesse;
+                    observation += Math.PI * vitesse / 180;
                     position.Lon = Destination.Lon - Math.Cos(observation) * RAYON;
                     position.Lat = Destination.Lat - Math.Sin(observation) * RAYON;
                     temps--;

@@ -49,7 +49,7 @@ namespace OTAI.Simulateur {
         public override void Simuler(int temps) {
             base.Simuler(temps);
 
-            while (position > destination == origine > destination && temps > 0) {
+            while ((position > destination == origine > destination && position.Lat > destination.Lat == origine.Lat > destination.Lat) && temps > 0) {
                 position.Lon += Math.Cos(angle) * vitesse / 60;
                 position.Lat += Math.Sin(angle) * vitesse / 60;
                 temps--;
