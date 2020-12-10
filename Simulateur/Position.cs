@@ -32,9 +32,9 @@ namespace OTAI.Simulateur {
         #endregion
 
         #region Propriétés publiques
-
+        /// <summary>Obtient et définit les valeurs de la latitude</summary>
         public double Lat { get => lat; set => lat = value; }
-
+        /// <summary>Obtient et définit les valeurs de la longitude</summary>
         public double Lon { get => lon; set => lon = value; }
 
         #endregion
@@ -65,6 +65,9 @@ namespace OTAI.Simulateur {
             return String.Format("{0}° {1:00}′ {2}, {3}° {4:00}′ {5}", Math.Abs(latitude), Math.Abs(Math.Round(lat - latitude * 100)) / 90, lat > 0 ? 'S' : 'N', Math.Abs(longitude), Math.Abs(Math.Round(lon - longitude * 100)) / 90, lon > 0 ? 'O' : 'E');
         }
 
+        /// <summary>Évalue si l'objet reçu en paramètre est identique à cette position</summary>
+        /// <param name="obj">Objet à comparer avec cette position</param>
+        /// <returns>Retourne <c>true</c> si l'objet reçu en paramètre est identique à cette position; sinon <c>false</c></returns>
         public override bool Equals(object obj) => obj is Position position && position.lat == lat && position.lon == lon;
 
         #endregion
@@ -96,8 +99,15 @@ namespace OTAI.Simulateur {
 
         #region Opérateurs
 
+        /// <summary>Évalue si la position a est identique à la position b</summary>
+        /// <param name="a">Position a</param>
+        /// <param name="b">Position b</param>
+        /// <returns>Retourne <c>true</c> si les positions sont identiques sinon <c>false</c></returns>
         public static bool operator ==(Position a, Position b) => a.Equals(b);
-
+        /// <summary>Évalue si la position a n'est pas identique à la position b</summary>
+        /// <param name="a">Position a</param>
+        /// <param name="b">Position b</param>
+        /// <returns>Retourne <c>true</c> si les positions ne sont pas identiques sinon <c>false</c></returns>
         public static bool operator !=(Position a, Position b) => !a.Equals(b);
 
         /// <summary>Évalue si la position a est plus grande que la position b en comparant leur longitude</summary>
